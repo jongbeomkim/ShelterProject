@@ -1,6 +1,5 @@
 package com.example.teamproject2;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -10,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
 
     // 프래그먼트의 자식들(Frag1 ~ Frag6)을 저장하기 위해 Fragment 형식으로 선언함
     private Fragment[] fragment = new Fragment[]{
-            new Frag1(), new Frag2(), new Frag3(),
-            new Frag4(), new Frag5(), new Frag6()
+            new CivilFragment(), new QuakeFragment(), new TsunamiFragment(),
+            new SwelterFragment(), new ColdwaveFragment(), new DustFragment()
     };
 
     @Override

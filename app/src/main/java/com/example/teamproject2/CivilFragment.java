@@ -18,7 +18,7 @@ import android.widget.Toast;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
-public class Frag1 extends Fragment {
+public class CivilFragment extends Fragment {
 
     ArrayList<MyData> myData;
     ListView mList;
