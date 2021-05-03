@@ -53,8 +53,8 @@ public class MyAdapter extends BaseAdapter {
         txt_name2 = (TextView) view.findViewById(R.id.list_name2);
         img_shelter = (ImageView) view.findViewById(R.id.list_icon);
         MyData myData = (MyData) list.get(position);
-        txt_name1.setText(myData.name1);
-        txt_name2.setText(myData.name2);
+        txt_name1.setText(myData.shelterName);
+        txt_name2.setText(myData.writer);
         img_shelter.setImageResource(myData.icon);
         Glide
                 .with(ctx)
