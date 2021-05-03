@@ -13,8 +13,8 @@
         android:background="#CDCDCD">
 
         <ImageView
+            android:id="@+id/item_icon"
             android:layout_margin="3dp"
-            android:id="@+id/list_icon"
             android:layout_width="46dp"
             android:layout_height="46dp"/>
 
@@ -25,7 +25,7 @@
             android:weightSum="2">
 
             <TextView
-                android:id="@+id/list_name1"
+                android:id="@+id/item_shelter"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="6dp"
@@ -50,7 +50,7 @@
                     android:maxLines="1"
                     android:text="제공자: "/>
                 <TextView
-                    android:id="@+id/list_name2"
+                    android:id="@+id/item_writer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="left|center"

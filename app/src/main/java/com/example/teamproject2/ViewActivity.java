@@ -44,10 +44,10 @@ public class ViewActivity extends AppCompatActivity {
                 m_v_provider = (TextView)findViewById(R.id.v_provider);
                 m_v_location = (TextView)findViewById(R.id.v_location);
 
-                byte[] byteArray = intent.getByteArrayExtra("pic");    // b 변수에 intent 내부에 들어있는 데이터들을 get 을 사용하여 저장한 뒤
+                byte[] byteArray = intent.getByteArrayExtra("icon");    // b 변수에 intent 내부에 들어있는 데이터들을 get 을 사용하여 저장한 뒤
                 Bitmap image = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-                s_name1 = intent.getStringExtra("s_name");
-                p_name1 = intent.getStringExtra("p_name");
+                s_name1 = intent.getStringExtra("shelterName");
+                p_name1 = intent.getStringExtra("writer");
                 l_name1 = intent.getStringExtra("l_name");
 
                 m_v_image.setImageBitmap(image);                              // a 변수에(id에 해당하는 곳에) b 변수에 저장된 데이터를 set 으로 설정한다.
