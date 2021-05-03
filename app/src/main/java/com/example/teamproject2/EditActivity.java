@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
 
@@ -29,14 +30,14 @@ public class EditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit);
 
         intent = getIntent();
-        int code = intent.getIntExtra("viewCode",-1);     // 호출한 Activity 를 구분하기 위한 code 를 받아온다.
+        int code = intent.getIntExtra("code",-1);
 
         checkActivity(code);
     }
 
-    public void checkActivity(int code){
+    public void checkActivity(int code){         ///////////뷰에서 수정 눌렀을때 값 받아옴
         switch (code){
-            case 10:          // ViewActivity 에서 호출되어 실행한다면~
+            case 10:
                 intent = getIntent();
 
                 imageView = findViewById(R.id.e_image);
@@ -67,17 +68,20 @@ public class EditActivity extends AppCompatActivity {
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(intent, 1);
                 break;
-           case R.id.e_button_OK:          // 추가버튼으로 통해서 왔을때 뷰액티비티에서 넘어 왔을때 if(?)필요해 보임
-                s_text = findViewById(R.id.e_shelterName);    
+            case R.id.e_button_OK:          // 수정 완료 눌렀을 때 뷰로 값 전송
+                s_text = findViewById(R.id.e_shelterName);
+                p_text = findViewById(R.id.e_provider);
+                l_text=findViewById(R.id.e_location);
                 intent = new Intent();
-                intent.putExtra("revise_s_name",s_text.getText().toString());
-                intent.putExtra("revise_p_name",p_text.getText().toString());
-                intent.putExtra("revise_l_name",l_text.getText().toString());
-                setResult(RESULT_OK, intent);
+                intent.putExtra("s_name",s_text.getText().toString());
+                intent.putExtra("p_name",p_text.getText().toString());
+                intent.putExtra("l_name",l_text.getText().toString());
+                setResult(RESULT_OK,intent);
                 Toast.makeText(this,"대피소가 업데이트 되었습니다.",Toast.LENGTH_LONG).show();
                 finish();
                 break;
             case R.id.e_button_CANCEL:
+                setResult(RESULT_OK);
                 Toast.makeText(this,"최소되었습니다.",Toast.LENGTH_LONG).show();
                 finish();
                 break;
@@ -86,7 +90,7 @@ public class EditActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {   //갤러리에서 사진 받아오기
-
+        imageView = findViewById(R.id.e_image);
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 try {
