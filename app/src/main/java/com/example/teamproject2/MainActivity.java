@@ -8,18 +8,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.Toast;
-
-import java.lang.reflect.Array;
 
 public class MainActivity extends AppCompatActivity {
 
     private int[] btnId = new int[]{
-            R.id.btn1, R.id.btn2, R.id.btn3,
-            R.id.btn4, R.id.btn5, R.id.btn6
+            R.id.m_btn1, R.id.m_btn2, R.id.m_btn3,
+            R.id.m_btn4, R.id.m_btn5, R.id.m_btn6
     };
     private Button[] btn = new Button[6];
 
@@ -43,11 +38,10 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment[finalI]).commit();
-                    a(btn[finalI]);
+                    isBtnSelected(btn[finalI]);
                 }
             });
         }
-
     }
 
     @Override
@@ -68,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void a(Button tempButton){
+    public void isBtnSelected(Button tempButton){
         for(int i=0; i<btn.length; i++){
             if(btn[i] == tempButton){
                 btn[i].setSelected(true);
