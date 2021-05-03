@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbarSize="3dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn1"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:text="민방공대피소"
+                android:textSize="10sp"
+                android:onClick="mOnClick"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@drawable/menu_select"/>
+            <Button
+                android:id="@+id/btn2"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:text="지진옥외\n대피장소"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:onClick="mOnClick"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@drawable/menu_select"/>
+            <Button
+                android:id="@+id/btn3"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:text="지진해일\n긴급대피장소"
+                android:textSize="10sp"
+                android:onClick="mOnClick"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@drawable/menu_select"/>
+            <Button
+                android:id="@+id/btn4"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:text="무더위쉼터"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:onClick="mOnClick"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@drawable/menu_select"/>
+            <Button
+                android:id="@+id/btn5"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:text="한파쉼터"
+                android:onClick="mOnClick"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@drawable/menu_select"/>
+            <Button
+                android:id="@+id/btn6"
+                android:layout_width="75dp"
+                android:layout_height="wrap_content"
+                android:text="미세먼지쉼터"
+                android:onClick="mOnClick"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@drawable/menu_select"/>
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:onClick="mOnClick"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
+</LinearLayout>

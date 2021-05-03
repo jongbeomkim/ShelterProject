@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#DCDCDC"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:scrollbarSize="4dp"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        android:scrollbarSize="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#FFFFFF">
+
+            <Button
+                android:id="@+id/cd_list1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:drawableRight="@drawable/ic_arrow"
+                android:gravity="left|center"
+                android:text="한신아파트\n경기도 화성시 봉담읍 샘마을길 24 (한신아파트)"
+                android:textSize="10sp"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:onClick="mOnClick">
+            </Button>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:background="#DCDCDC"/>
+            <Button
+                android:id="@+id/cd_list2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:drawableRight="@drawable/ic_arrow"
+                android:gravity="left|center"
+                android:text="한신아파트\n경기도 화성시 봉담읍 샘마을길 24 (한신아파트)"
+                android:textSize="10sp"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:onClick="mOnClick">
+            </Button>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:background="#DCDCDC"/>
+            <Button
+                android:id="@+id/cd_list3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:drawableRight="@drawable/ic_arrow"
+                android:gravity="left|center"
+                android:text="한신아파트\n경기도 화성시 봉담읍 샘마을길 24 (한신아파트)"
+                android:textSize="10sp"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:onClick="mOnClick">
+            </Button>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
