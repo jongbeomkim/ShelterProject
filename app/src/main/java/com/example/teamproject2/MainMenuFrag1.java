@@ -31,7 +31,7 @@ public class MainMenuFrag1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.frag_1, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_main_1, container, false);
 
         myData = new ArrayList<>();
         myData.add(new MyData(R.drawable.shelter, "대피소1","김동현"));
