@@ -39,15 +39,15 @@ public class Frag1 extends Fragment {
         myData.add(new MyData(R.drawable.shelter, "대피소3","이학준"));
         myData.add(new MyData(R.drawable.shelter, "대피소4","조윤진"));
 
-        mList = (ListView) rootView.findViewById(R.id.list);
+        mList = (ListView) rootView.findViewById(R.id.frag1_list);
         myAdapter = new MyAdapter(getContext(), myData);
         mList.setAdapter(myAdapter);
         mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
                 //각 아이템을 분간 할 수 있는 position과 뷰
-                name1=view.findViewById(R.id.list_name1);   //리스튜뷰에 쉴터 이름
-                name2=view.findViewById(R.id.list_name2);   //리스튜뷰에 제공자명
+                name1=view.findViewById(R.id.list_name1);   //리스트뷰에 쉴터 이름
+                name2=view.findViewById(R.id.list_name2);   //리스트뷰에 제공자명
                 Toast.makeText(getContext(), "Clicked: "  +" " + name1.getText(), Toast.LENGTH_SHORT).show();
                 Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.shelter);  //구글링해서 잘모름
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
