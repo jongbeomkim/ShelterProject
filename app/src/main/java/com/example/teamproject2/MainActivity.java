@@ -24,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
 
     // 프래그먼트의 자식들(Frag1 ~ Frag6)을 저장하기 위해 Fragment 형식으로 선언함
     private Fragment[] fragment = new Fragment[]{
-            new CivilFragment(), new QuakeFragment(), new TsunamiFragment(),
-            new SwelterFragment(), new ColdwaveFragment(), new DustFragment()
+            new MainMenuFrag1(), new MainMenuFrag2(), new MainMenuFrag3(),
+            new MainMenuFrag4(), new MainMenuFrag5(), new MainMenuFrag6()
     };
 
     @Override
