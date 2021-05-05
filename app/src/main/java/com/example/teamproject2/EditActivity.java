@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
@@ -69,10 +70,17 @@ public class EditActivity extends AppCompatActivity {
                 startActivityForResult(intent, 1);
                 break;
             case R.id.e_button_OK:          // 수정 완료 눌렀을 때 뷰로 값 전송
+                imageView = findViewById(R.id.e_image);
                 s_text = findViewById(R.id.e_shelterName);
                 p_text = findViewById(R.id.e_provider);
                 l_text=findViewById(R.id.e_location);
                 intent = new Intent();
+                BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable(); //이미지 동적
+                Bitmap bitmap = drawable.getBitmap();
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] byteArray = stream.toByteArray();
+                intent.putExtra("icon", byteArray);
                 intent.putExtra("s_name",s_text.getText().toString());
                 intent.putExtra("p_name",p_text.getText().toString());
                 intent.putExtra("l_name",l_text.getText().toString());

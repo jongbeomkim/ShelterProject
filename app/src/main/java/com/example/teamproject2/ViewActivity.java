@@ -90,7 +90,9 @@ public class ViewActivity extends AppCompatActivity {
             String s = data.getStringExtra("s_name");   // 문자열 변수에 EditActivity 에서 put 한 데이터를 get 으로 가져오고
             String p = data.getStringExtra("p_name");
             String l = data.getStringExtra("l_name");
-            m_v_shelterName = (TextView)findViewById(R.id.v_shelterName);
+            byte[] byteArray = data.getByteArrayExtra("icon");    // b 변수에 intent 내부에 들어있는 데이터들을 get 을 사용하여 저장한 뒤
+            Bitmap image = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+            m_v_image.setImageBitmap(image);
             m_v_shelterName.setText(s);
             m_v_provider.setText(p);
             m_v_location.setText(l);
