@@ -3,6 +3,7 @@ package com.example.teamproject2;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +26,7 @@ public class MainMenuFrag1 extends Fragment {
     ListView mList;
     private TextView shelterName;
     private TextView writer;
+    private ImageView img;
     private static MyAdapter myAdapter;
     private int viewCode = 20;     // Frag1의 viewCode
 
@@ -34,7 +37,7 @@ public class MainMenuFrag1 extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_main_1, container, false);
 
         items = new ArrayList<>();
-        items.add(new Item(R.drawable.shelter, "대피소1","김동현"));
+        items.add(new Item(R.drawable.test, "대피소1","김동현"));
         items.add(new Item(R.drawable.shelter, "대피소2","김종범"));
         items.add(new Item(R.drawable.shelter, "대피소3","이학준"));
         items.add(new Item(R.drawable.shelter, "대피소4","조윤진"));
@@ -62,12 +65,15 @@ public class MainMenuFrag1 extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
                 //각 아이템을 분간 할 수 있는 position과 뷰
+                img = view.findViewById(R.id.item_icon);   //리스트뷰에 img
                 shelterName = view.findViewById(R.id.item_shelter);   //리스트뷰에 쉴터 이름
                 writer = view.findViewById(R.id.item_writer);   //리스트뷰에 제공자명
+
                 Toast.makeText(getContext(), "Clicked: "  +" " + shelterName.getText(), Toast.LENGTH_SHORT).show();
 
                 // 그림 가져오는 부분(추가 설명 필요)
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.shelter);  //구글링해서 잘모름
+                BitmapDrawable drawable = (BitmapDrawable) img.getDrawable(); //이미지 동적
+                Bitmap bitmap = drawable.getBitmap();
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
 

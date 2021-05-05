@@ -30,7 +30,7 @@ public class EditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit);
 
         intent = getIntent();
-        int code = intent.getIntExtra("code",-1);
+        int code = intent.getIntExtra("viewCode",-1);
 
         checkActivity(code);
     }

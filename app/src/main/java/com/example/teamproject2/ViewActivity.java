@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -59,11 +60,13 @@ public class ViewActivity extends AppCompatActivity {
 
     public void mOnClick(View v){
         Intent intent;
+
         switch (v.getId()){
             case R.id.v_button_EDIT:          // ViewActivity 에서 '편집'버튼을 클릭하면~
                 intent = new Intent(this, EditActivity.class);
 
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.shelter);
+                BitmapDrawable drawable = (BitmapDrawable) m_v_image.getDrawable(); //이미지 동적
+                Bitmap bitmap = drawable.getBitmap();
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] byteArray = stream.toByteArray();
@@ -84,9 +87,9 @@ public class ViewActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if(requestCode==10 && resultCode==RESULT_OK) {                // ViewActivity >> EditActivity >> ViewActivity 로 다시 왔을 때~
-            String s = data.getStringExtra("revise_s_name");   // 문자열 변수에 EditActivity 에서 put 한 데이터를 get 으로 가져오고
-            String p = data.getStringExtra("revise_p_name");
-            String l = data.getStringExtra("revise_l_name");
+            String s = data.getStringExtra("s_name");   // 문자열 변수에 EditActivity 에서 put 한 데이터를 get 으로 가져오고
+            String p = data.getStringExtra("p_name");
+            String l = data.getStringExtra("l_name");
             m_v_shelterName = (TextView)findViewById(R.id.v_shelterName);
             m_v_shelterName.setText(s);
             m_v_provider.setText(p);
