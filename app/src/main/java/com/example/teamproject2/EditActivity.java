@@ -16,7 +16,7 @@ import android.widget.Toast;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
-
+//
 public class EditActivity extends AppCompatActivity {
 
     private ImageView imageView;
