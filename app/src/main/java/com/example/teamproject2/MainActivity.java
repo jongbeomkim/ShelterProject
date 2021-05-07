@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //HJ_test
         // btn 배열을 초기화
         for(int i=0; i<btn.length; i++){
             btn[i] = (Button) findViewById(btnId[i]);
