@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment[0]).commit();
         // btn 배열을 초기화
         for(int i=0; i<btn.length; i++){
             btn[i] = (Button) findViewById(btnId[i]);
