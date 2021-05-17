@@ -2,9 +2,11 @@ package com.example.teamproject2;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -19,6 +21,8 @@ import android.widget.Toast;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
+import static android.app.Activity.RESULT_OK;
+
 public class MainMenuFrag1 extends Fragment {
 
     ArrayList<Item> items;
@@ -28,6 +32,9 @@ public class MainMenuFrag1 extends Fragment {
     private ImageView img;
     private static MyAdapter myAdapter;
     private int viewCode = 20;     // Frag1의 viewCode
+    private int img_plus;
+    private  String s_plus, p_plus, l_plus;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,26 +47,11 @@ public class MainMenuFrag1 extends Fragment {
         items.add(new Item(R.drawable.shelter, "대피소2","김종범"));
         items.add(new Item(R.drawable.shelter, "대피소3","이학준"));
         items.add(new Item(R.drawable.shelter, "대피소4","조윤진"));
-        items.add(new Item(R.drawable.shelter, "대피소1","김동현"));
-        items.add(new Item(R.drawable.shelter, "대피소2","김종범"));
-        items.add(new Item(R.drawable.shelter, "대피소3","이학준"));
-        items.add(new Item(R.drawable.shelter, "대피소4","조윤진"));
-        items.add(new Item(R.drawable.shelter, "대피소1","김동현"));
-        items.add(new Item(R.drawable.shelter, "대피소2","김종범"));
-        items.add(new Item(R.drawable.shelter, "대피소3","이학준"));
-        items.add(new Item(R.drawable.shelter, "대피소4","조윤진"));
-        items.add(new Item(R.drawable.shelter, "대피소1","김동현"));
-        items.add(new Item(R.drawable.shelter, "대피소2","김종범"));
-        items.add(new Item(R.drawable.shelter, "대피소3","이학준"));
-        items.add(new Item(R.drawable.shelter, "대피소4","조윤진"));
-        items.add(new Item(R.drawable.shelter, "대피소1","김동현"));
-        items.add(new Item(R.drawable.shelter, "대피소2","김종범"));
-        items.add(new Item(R.drawable.shelter, "대피소3","이학준"));
-        items.add(new Item(R.drawable.shelter, "대피소4","조윤진"));
 
         mList = (ListView) rootView.findViewById(R.id.frag1_list);
         myAdapter = new MyAdapter(getContext(), items);
         mList.setAdapter(myAdapter);
+
         mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
@@ -86,8 +78,18 @@ public class MainMenuFrag1 extends Fragment {
                 startActivityForResult(intent, 0);
             }
 
+
         });
 
         return rootView;
     }
+    public void setSelection(int img, String s1, String s2, String s3){
+        img_plus = img;
+        s_plus = s1;
+        p_plus = s2;
+        l_plus = s3;
+        items.add(new Item(img_plus, s_plus, p_plus));
+        myAdapter.notifyDataSetChanged();     // 프레그먼트 재실행
+    }
+
 }

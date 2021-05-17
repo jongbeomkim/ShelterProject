@@ -4,11 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private Fragment[] fragment = new Fragment[]{
             new MainMenuFrag1(), new MainMenuFrag2(), new MainMenuFrag3(),
             new MainMenuFrag4(), new MainMenuFrag5(), new MainMenuFrag6()
+
     };
 
     @Override
@@ -34,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment[0]).commit();
         // btn 배열을 초기화
+
         for(int i=0; i<btn.length; i++){
             btn[i] = (Button) findViewById(btnId[i]);
         }
@@ -45,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     // 설명 필요
+
                     getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment[finalI]).commit();
                     isBtnSelected(btn[finalI]);
                 }
@@ -79,5 +88,21 @@ public class MainActivity extends AppCompatActivity {
                 btn[i].setSelected(false);
             }
         }
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    //    img = findViewById(R.id.item_icon);   //리스트뷰에 img
+    //    shelterName =findViewById(R.id.item_shelter);   //리스트뷰에 쉴터 이름
+     //   writer =findViewById(R.id.item_writer);   //리스트뷰에 제공자명
+
+        if(requestCode == 11) {                //
+            String s = data.getStringExtra("s_name");   // 문자열 변수에 EditActivity 에서 put 한 데이터를 get 으로 가져오고
+            String p = data.getStringExtra("p_name");
+            String l = data.getStringExtra("l_name");
+            byte[] byteArray = data.getByteArrayExtra("icon");    // b 변수에 intent 내부에 들어있는 데이터들을 get 을 사용하여 저장한 뒤
+            Bitmap image = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+            ((MainMenuFrag1)fragment[0]).setSelection(R.drawable.shelter, s, p, l);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

@@ -60,8 +60,8 @@ public class EditActivity extends AppCompatActivity {
     }
 
     public void mOnClick(View v){
-        Intent intent;
-
+        int code = intent.getIntExtra("viewCode",-1);  //뷰에서 온 확인코드 10
+        int code2 = intent.getIntExtra("code",-1);    //메인에서 온 확인코드 20
         switch (v.getId()){
             case R.id.e_image:
                 intent = new Intent();
@@ -70,26 +70,26 @@ public class EditActivity extends AppCompatActivity {
                 startActivityForResult(intent, 1);
                 break;
             case R.id.e_button_OK:          // 수정 완료 눌렀을 때 뷰로 값 전송
-                imageView = findViewById(R.id.e_image);
-                s_text = findViewById(R.id.e_shelterName);
-                p_text = findViewById(R.id.e_provider);
-                l_text=findViewById(R.id.e_location);
-                intent = new Intent();
-                BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable(); //이미지 동적
-                Bitmap bitmap = drawable.getBitmap();
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                byte[] byteArray = stream.toByteArray();
-                intent.putExtra("icon", byteArray);
-                intent.putExtra("s_name",s_text.getText().toString());
-                intent.putExtra("p_name",p_text.getText().toString());
-                intent.putExtra("l_name",l_text.getText().toString());
-                setResult(RESULT_OK,intent);
-                Toast.makeText(this,"대피소가 업데이트 되었습니다.",Toast.LENGTH_LONG).show();
-                finish();
-                break;
+                intent = getIntent();
+                    imageView = findViewById(R.id.e_image);
+                    s_text = findViewById(R.id.e_shelterName);
+                    p_text = findViewById(R.id.e_provider);
+                    l_text = findViewById(R.id.e_location);
+                    intent = new Intent();
+                    BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable(); //이미지 동적
+                    Bitmap bitmap = drawable.getBitmap();
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    byte[] byteArray = stream.toByteArray();
+                    intent.putExtra("icon", byteArray);
+                    intent.putExtra("s_name", s_text.getText().toString());
+                    intent.putExtra("p_name", p_text.getText().toString());
+                    intent.putExtra("l_name", l_text.getText().toString());
+                    setResult(RESULT_OK, intent);
+                    Toast.makeText(this, "대피소가 업데이트 되었습니다.", Toast.LENGTH_LONG).show();
+                    finish();
+                    break;
             case R.id.e_button_CANCEL:
-                setResult(RESULT_OK);
                 Toast.makeText(this,"최소되었습니다.",Toast.LENGTH_LONG).show();
                 finish();
                 break;
