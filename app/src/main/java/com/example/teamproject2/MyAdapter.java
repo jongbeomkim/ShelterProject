@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class MyAdapter extends BaseAdapter {
     private Context ctx;
-    ArrayList<Item> items;
+    private ArrayList<Item> items;
 
     public TextView txt_shelter;
     public TextView txt_writer;
@@ -58,7 +58,7 @@ public class MyAdapter extends BaseAdapter {
                 .with(ctx)
                 .load(item.icon)
                 .centerCrop()
-                .apply(new RequestOptions().override(24, 24))
+                .apply(new RequestOptions().override(500, 500))
                 .into(img_shelter);
         return view;
     }
