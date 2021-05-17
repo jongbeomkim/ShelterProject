@@ -2,7 +2,6 @@ package com.example.teamproject2;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
@@ -85,8 +84,7 @@ public class MainMenuFrag1 extends Fragment {
                 intent.putExtra("writer", writer.getText().toString());
                 intent.putExtra("code",viewCode);
                 startActivityForResult(intent, 0);
-                }
-
+            }
 
         });
 
