@@ -34,7 +34,7 @@ public class MainMenuFrag1 extends Fragment {
     private int viewCode = 20;     // Frag1의 viewCode
     private int img_plus;
     private  String s_plus, p_plus, l_plus;
-
+    int position;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,6 +75,7 @@ public class MainMenuFrag1 extends Fragment {
                 intent.putExtra("shelterName", shelterName.getText().toString());     //뷰 액티비티로 갈때 값 넘김
                 intent.putExtra("writer", writer.getText().toString());
                 intent.putExtra("code",viewCode);
+                intent.putExtra("position",position);
                 startActivityForResult(intent, 0);
             }
 
@@ -84,12 +85,16 @@ public class MainMenuFrag1 extends Fragment {
         return rootView;
     }
     public void setSelection(int img, String s1, String s2, String s3){
-        img_plus = img;
-        s_plus = s1;
-        p_plus = s2;
-        l_plus = s3;
-        items.add(new Item(img_plus, s_plus, p_plus));
-        myAdapter.notifyDataSetChanged();     // 프레그먼트 재실행
+            img_plus = img;
+            s_plus = s1;
+            p_plus = s2;
+            l_plus = s3;
+            items.add(new Item(img_plus, s_plus, p_plus));
+            myAdapter.notifyDataSetChanged();     // 프레그먼트 재실행
     }
-
+    public  void remove(int position1){
+        position = position1;
+        items.remove(position1);
+        myAdapter.notifyDataSetChanged();
+    }
 }

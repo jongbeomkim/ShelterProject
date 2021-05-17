@@ -33,6 +33,7 @@ public class ViewActivity extends AppCompatActivity {
 
         intent = getIntent();
         int code = intent.getIntExtra("code",-1);
+
         checkActivity(code);
 
     }
@@ -79,6 +80,15 @@ public class ViewActivity extends AppCompatActivity {
                 intent.putExtra("l_name",m_v_location.getText().toString());
                 intent.putExtra("viewCode",10);  //EditActivity 에서 ViewActivity 인 것을 구분하기 위한 코드
                 startActivityForResult(intent, viewCode);     // EditActivity 를 호출
+                break;
+            case R.id.v_button_REMOVE:
+                intent = getIntent();
+                Intent intent1 = new Intent();
+                int i = intent.getIntExtra("position", -1);
+                intent1.putExtra("a",100);
+                intent1.putExtra("p", i);
+                setResult(RESULT_CANCELED, intent1);
+                finish();
                 break;
         }
     }

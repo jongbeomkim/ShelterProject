@@ -19,7 +19,6 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private int mainCode = 11;
-
     // activity_main.xml에 있는 버튼들을 묶어서 저장함
     private int[] btnId = new int[]{
             R.id.m_btn1, R.id.m_btn2, R.id.m_btn3,
@@ -29,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private Button[] btn = new Button[6];
 
     // 프래그먼트의 자식들(Frag1 ~ Frag6)을 저장하기 위해 Fragment 형식으로 선언함
-    private Fragment[] fragment = new Fragment[]{
+    public Fragment[] fragment = new Fragment[]{
             new MainMenuFrag1(), new MainMenuFrag2(), new MainMenuFrag3(),
             new MainMenuFrag4(), new MainMenuFrag5(), new MainMenuFrag6()
 
@@ -42,11 +41,11 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment[0]).commit();
         // btn 배열을 초기화
 
-        for(int i=0; i<btn.length; i++){
+        for (int i = 0; i < btn.length; i++) {
             btn[i] = (Button) findViewById(btnId[i]);
         }
 
-        for(int i=0; i<btn.length; i++){
+        for (int i = 0; i < btn.length; i++) {
             int finalI = i;
             // btn[0~5]에 대한 onClickListener를 생성함
             btn[i].setOnClickListener(new View.OnClickListener() {
@@ -63,14 +62,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main,menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
-        switch(item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.edit:
                 intent = new Intent(this, EditActivity.class);
                 startActivityForResult(intent, mainCode);
@@ -80,29 +79,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // 버튼을 6개 중 한 개 선택했을 경우 해당 버튼만 true로 하고 나머지는 false로 해주는 메서드
-    public void isBtnSelected(Button tempButton){
-        for(int i=0; i<btn.length; i++){
-            if(btn[i] == tempButton){
+    public void isBtnSelected(Button tempButton) {
+        for (int i = 0; i < btn.length; i++) {
+            if (btn[i] == tempButton) {
                 btn[i].setSelected(true);
-            } else{
+            } else {
                 btn[i].setSelected(false);
             }
         }
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    //    img = findViewById(R.id.item_icon);   //리스트뷰에 img
-    //    shelterName =findViewById(R.id.item_shelter);   //리스트뷰에 쉴터 이름
-     //   writer =findViewById(R.id.item_writer);   //리스트뷰에 제공자명
-
-        if(requestCode == 11) {                //
+        //    img = findViewById(R.id.item_icon);   //리스트뷰에 img
+        //    shelterName =findViewById(R.id.item_shelter);   //리스트뷰에 쉴터 이름
+        //   writer =findViewById(R.id.item_writer);   //리스트뷰에 제공자명
+        super.onActivityResult(requestCode, resultCode, data);
+        int x = data.getIntExtra("a", -1);
+        if (requestCode == 11) {                //
             String s = data.getStringExtra("s_name");   // 문자열 변수에 EditActivity 에서 put 한 데이터를 get 으로 가져오고
             String p = data.getStringExtra("p_name");
             String l = data.getStringExtra("l_name");
             byte[] byteArray = data.getByteArrayExtra("icon");    // b 변수에 intent 내부에 들어있는 데이터들을 get 을 사용하여 저장한 뒤
             Bitmap image = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-            ((MainMenuFrag1)fragment[0]).setSelection(R.drawable.shelter, s, p, l);
+            ((MainMenuFrag1) fragment[0]).setSelection(R.drawable.shelter, s, p, l);
         }
-        super.onActivityResult(requestCode, resultCode, data);
+        if (x == 100 && resultCode == RESULT_CANCELED) {
+            int po = data.getIntExtra("p", -1);
+            ((MainMenuFrag1) fragment[0]).remove(po);
+        }
     }
 }
