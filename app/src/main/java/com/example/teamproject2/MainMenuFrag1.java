@@ -76,7 +76,8 @@ public class MainMenuFrag1 extends Fragment {
                 intent.putExtra("writer", writer.getText().toString());
                 intent.putExtra("code",viewCode);
                 intent.putExtra("position",position);
-                startActivityForResult(intent, 0);
+                getActivity().startActivityForResult(intent, 0);
+
             }
 
 

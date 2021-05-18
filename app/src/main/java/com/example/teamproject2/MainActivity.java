@@ -95,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
         //    shelterName =findViewById(R.id.item_shelter);   //리스트뷰에 쉴터 이름
         //   writer =findViewById(R.id.item_writer);   //리스트뷰에 제공자명
         super.onActivityResult(requestCode, resultCode, data);
-        int x = data.getIntExtra("a", -1);
         if (requestCode == 11) {                //
             String s = data.getStringExtra("s_name");   // 문자열 변수에 EditActivity 에서 put 한 데이터를 get 으로 가져오고
             String p = data.getStringExtra("p_name");
@@ -104,9 +103,10 @@ public class MainActivity extends AppCompatActivity {
             Bitmap image = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
             ((MainMenuFrag1) fragment[0]).setSelection(R.drawable.shelter, s, p, l);
         }
-        if (x == 100 && resultCode == RESULT_CANCELED) {
-            int po = data.getIntExtra("p", -1);
+        else if (requestCode==0) {
+            int po = data.getIntExtra("position", -1);
             ((MainMenuFrag1) fragment[0]).remove(po);
         }
+
     }
 }
