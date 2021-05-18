@@ -43,10 +43,10 @@ public class MainMenuFrag1 extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_main_1, container, false);
 
         items = new ArrayList<>();
-        items.add(new Item(R.drawable.test, "대피소1","김동현"));
-        items.add(new Item(R.drawable.shelter, "대피소2","김종범"));
-        items.add(new Item(R.drawable.shelter, "대피소3","이학준"));
-        items.add(new Item(R.drawable.shelter, "대피소4","조윤진"));
+        items.add(new Item(R.drawable.test, "대피소1","김동현","평택"));
+        items.add(new Item(R.drawable.shelter, "대피소2","김종범","안산"));
+        items.add(new Item(R.drawable.shelter, "대피소3","이학준","수원"));
+        items.add(new Item(R.drawable.shelter, "대피소4","조윤진","수원"));
 
         mList = (ListView) rootView.findViewById(R.id.frag1_list);
         myAdapter = new MyAdapter(getContext(), items);
@@ -74,6 +74,7 @@ public class MainMenuFrag1 extends Fragment {
                 intent.putExtra("icon", byteArray);
                 intent.putExtra("shelterName", shelterName.getText().toString());     //뷰 액티비티로 갈때 값 넘김
                 intent.putExtra("writer", writer.getText().toString());
+                intent.putExtra("location",items.get(position).location);
                 intent.putExtra("code",viewCode);
                 intent.putExtra("position",position);
                 getActivity().startActivityForResult(intent, 0);
@@ -90,7 +91,7 @@ public class MainMenuFrag1 extends Fragment {
             s_plus = s1;
             p_plus = s2;
             l_plus = s3;
-            items.add(new Item(img_plus, s_plus, p_plus));
+            items.add(new Item(img_plus, s_plus, p_plus,l_plus));
             myAdapter.notifyDataSetChanged();     // 프레그먼트 재실행
     }
     public  void remove(int position1){

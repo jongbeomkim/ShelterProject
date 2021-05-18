@@ -36,10 +36,10 @@ public class MainMenuFrag2 extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_main_1, container, false);
 
         items = new ArrayList<>();
-        items.add(new Item(R.drawable.test, "대피소1","김동현"));
-        items.add(new Item(R.drawable.shelter, "대피소2","김종범"));
-        items.add(new Item(R.drawable.shelter, "대피소3","이학준"));
-        items.add(new Item(R.drawable.shelter, "대피소4","조윤진"));
+        items.add(new Item(R.drawable.test, "대피소1","김동현","1"));
+        items.add(new Item(R.drawable.shelter, "대피소2","김종범","2"));
+        items.add(new Item(R.drawable.shelter, "대피소3","이학준","3"));
+        items.add(new Item(R.drawable.shelter, "대피소4","조윤진","4"));
 
         mList = (ListView) rootView.findViewById(R.id.frag1_list);
         myAdapter = new MyAdapter(getContext(), items);

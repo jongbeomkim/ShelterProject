@@ -50,7 +50,7 @@ public class ViewActivity extends AppCompatActivity {
                 Bitmap image = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
                 s_name1 = intent.getStringExtra("shelterName");
                 p_name1 = intent.getStringExtra("writer");
-                l_name1 = intent.getStringExtra("l_name");
+                l_name1 = intent.getStringExtra("location");
 
                 m_v_image.setImageBitmap(image);                              // a 변수에(id에 해당하는 곳에) b 변수에 저장된 데이터를 set 으로 설정한다.
                 m_v_shelterName.setText(s_name1);
