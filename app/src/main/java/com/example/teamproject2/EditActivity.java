@@ -90,7 +90,7 @@ public class EditActivity extends AppCompatActivity {
                     finish();
                     break;
             case R.id.e_button_CANCEL:
-                Toast.makeText(this,"최소되었습니다.",Toast.LENGTH_LONG).show();
+                setResult(RESULT_CANCELED, intent);
                 finish();
                 break;
         }

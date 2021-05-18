@@ -84,7 +84,7 @@ public class ViewActivity extends AppCompatActivity {
             case R.id.v_button_REMOVE:
                 intent = getIntent();
                 intent.getIntExtra("position",-1);
-                setResult(RESULT_CANCELED, intent);
+                setResult(30, intent);
                 finish();
                 break;
         }
