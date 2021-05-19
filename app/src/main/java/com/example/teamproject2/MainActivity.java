@@ -1,8 +1,10 @@
 package com.example.teamproject2;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -25,8 +27,7 @@ public class MainActivity extends AppCompatActivity {
             R.id.m_btn1, R.id.m_btn2, R.id.m_btn3,
             R.id.m_btn4, R.id.m_btn5, R.id.m_btn6
     };
-    // 버튼 6개를 저장할 배열을 선언함
-    private Button[] btn = new Button[6];
+    private Button[] btn = new Button[6];  // 버튼 6개를 저장할 배열을 선언함
 
     // 프래그먼트의 자식들(Frag1 ~ Frag6)을 저장하기 위해 Fragment 형식으로 선언함
     public Fragment[] fragment = new Fragment[]{
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
             new MainMenuFrag4(), new MainMenuFrag5(), new MainMenuFrag6()
 
     };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +63,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -79,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     // 버튼을 6개 중 한 개 선택했을 경우 해당 버튼만 true로 하고 나머지는 false로 해주는 메서드
     public void isBtnSelected(Button tempButton) {
         for (int i = 0; i < btn.length; i++) {
@@ -89,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -118,5 +124,19 @@ public class MainActivity extends AppCompatActivity {
             ((MainMenuFrag1) fragment[0]).edit(po,R.drawable.shelter, s, p, l);
         }
 
+    }
+
+    @Override
+    public void onBackPressed(){      // 메인에서 뒤로가기를 눌렀을 때 앱을 종료할 것인지 확인하는 함수
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Notice");
+        builder.setMessage("앱을 종료하시겠습니까?");
+        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                android.os.Process.killProcess(android.os.Process.myPid());
+            }
+        });
+        builder.setNegativeButton("취소", null);
+        builder.create().show();
     }
 }
