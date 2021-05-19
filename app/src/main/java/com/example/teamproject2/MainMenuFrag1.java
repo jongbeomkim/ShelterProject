@@ -99,4 +99,12 @@ public class MainMenuFrag1 extends Fragment {
         items.remove(position1);
         myAdapter.notifyDataSetChanged();
     }
+    public void edit(int position,int img, String s1, String s2, String s3){
+        img_plus = img;
+        s_plus = s1;
+        p_plus = s2;
+        l_plus = s3;
+        items.set(position,new Item(img_plus, s_plus, p_plus,l_plus));
+        myAdapter.notifyDataSetChanged();
+    }
 }

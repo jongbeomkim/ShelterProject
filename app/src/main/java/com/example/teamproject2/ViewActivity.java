@@ -32,19 +32,20 @@ public class ViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view);
 
         intent = getIntent();
-        int code = intent.getIntExtra("code",-1);
+        int code = intent.getIntExtra("code", -1);
 
         checkActivity(code);
 
     }
-    public void checkActivity(int code){
-        switch (code){
+
+    public void checkActivity(int code) {
+        switch (code) {
             case 20:                                                          // Frag1에서 불렀다면~ (대피소를 보기 위해 리스트 하나를 클릭했다면)
                 intent = getIntent();
-                m_v_image = (ImageView)findViewById(R.id.v_image);            // 데이터 별로 id를 가져와 a 변수에 저장하고
-                m_v_shelterName = (TextView)findViewById(R.id.v_shelterName);
-                m_v_provider = (TextView)findViewById(R.id.v_provider);
-                m_v_location = (TextView)findViewById(R.id.v_location);
+                m_v_image = (ImageView) findViewById(R.id.v_image);            // 데이터 별로 id를 가져와 a 변수에 저장하고
+                m_v_shelterName = (TextView) findViewById(R.id.v_shelterName);
+                m_v_provider = (TextView) findViewById(R.id.v_provider);
+                m_v_location = (TextView) findViewById(R.id.v_location);
 
                 byte[] byteArray = intent.getByteArrayExtra("icon");    // b 변수에 intent 내부에 들어있는 데이터들을 get 을 사용하여 저장한 뒤
                 Bitmap image = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
@@ -59,10 +60,10 @@ public class ViewActivity extends AppCompatActivity {
         }
     }
 
-    public void mOnClick(View v){
+    public void mOnClick(View v) {
         Intent intent;
 
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.v_button_EDIT:          // ViewActivity 에서 '편집'버튼을 클릭하면~
                 intent = new Intent(this, EditActivity.class);
 
@@ -74,16 +75,16 @@ public class ViewActivity extends AppCompatActivity {
                 //  ↑ 구글링으로 찾은 이미지를 put 하는 방법인데 자세히는 모르겠음.
                 //  | 아마 bit 로 이루어진 이미지의 bit 를 배열로 저장하고 넘기는 방식인듯 함.
 
-                intent.putExtra("pic",byteArray);       // 인텐트에 값들을 넣어서
-                intent.putExtra("s_name",m_v_shelterName.getText().toString());
-                intent.putExtra("p_name",m_v_provider.getText().toString());
-                intent.putExtra("l_name",m_v_location.getText().toString());
-                intent.putExtra("viewCode",10);  //EditActivity 에서 ViewActivity 인 것을 구분하기 위한 코드
+                intent.putExtra("pic", byteArray);       // 인텐트에 값들을 넣어서
+                intent.putExtra("s_name", m_v_shelterName.getText().toString());
+                intent.putExtra("p_name", m_v_provider.getText().toString());
+                intent.putExtra("l_name", m_v_location.getText().toString());
+                intent.putExtra("viewCode", 10);  //EditActivity 에서 ViewActivity 인 것을 구분하기 위한 코드
                 startActivityForResult(intent, viewCode);     // EditActivity 를 호출
                 break;
             case R.id.v_button_REMOVE:
                 intent = getIntent();
-                intent.getIntExtra("position",-1);
+                //intent.getIntExtra("position",-1);
                 setResult(30, intent);
                 finish();
                 break;
@@ -93,7 +94,7 @@ public class ViewActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if(requestCode==10 && resultCode==RESULT_OK) {                // ViewActivity >> EditActivity >> ViewActivity 로 다시 왔을 때~
+        if (requestCode == 10 && resultCode == RESULT_OK) {                // ViewActivity >> EditActivity >> ViewActivity 로 다시 왔을 때~
             String s = data.getStringExtra("s_name");   // 문자열 변수에 EditActivity 에서 put 한 데이터를 get 으로 가져오고
             String p = data.getStringExtra("p_name");
             String l = data.getStringExtra("l_name");
@@ -105,5 +106,26 @@ public class ViewActivity extends AppCompatActivity {
             m_v_location.setText(l);
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        m_v_image = (ImageView) findViewById(R.id.v_image);            // 데이터 별로 id를 가져와 a 변수에 저장하고
+        m_v_shelterName = (TextView) findViewById(R.id.v_shelterName);
+        m_v_provider = (TextView) findViewById(R.id.v_provider);
+        m_v_location = (TextView) findViewById(R.id.v_location);
+        BitmapDrawable drawable = (BitmapDrawable) m_v_image.getDrawable(); //이미지 동적
+        Bitmap bitmap = drawable.getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        intent.putExtra("icon", byteArray);
+        intent.putExtra("s_name", m_v_shelterName.getText().toString());
+        intent.putExtra("p_name", m_v_provider.getText().toString());
+        intent.putExtra("l_name", m_v_location.getText().toString());
+        setResult(40, intent);
+
+        finish();
     }
 }
