@@ -3,6 +3,7 @@ package com.example.teamproject2;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -36,11 +37,12 @@ public class MainMenuFrag2 extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_main_1, container, false);
 
         items = new ArrayList<>();
-        items.add(new Item(R.drawable.test, "대피소1","김동현","1"));
-        items.add(new Item(R.drawable.shelter, "대피소2","김종범","2"));
-        items.add(new Item(R.drawable.shelter, "대피소3","이학준","3"));
-        items.add(new Item(R.drawable.shelter, "대피소4","조윤진","4"));
-
+        Drawable test = getResources().getDrawable( R.drawable.test );
+        Drawable shelter = getResources().getDrawable( R.drawable.shelter );
+        items.add(new Item(test, "대피소1","김동현","평택"));
+        items.add(new Item(shelter, "대피소2","김종범","안산"));
+        items.add(new Item(shelter, "대피소3","이학준","수원"));
+        items.add(new Item(shelter, "대피소4","조윤진","수원"));
         mList = (ListView) rootView.findViewById(R.id.frag1_list);
         myAdapter = new MyAdapter(getContext(), items);
         mList.setAdapter(myAdapter);

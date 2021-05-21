@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -32,7 +33,7 @@ public class MainMenuFrag1 extends Fragment {
     private ImageView img;
     private static MyAdapter myAdapter;
     private int viewCode = 20;     // Frag1의 viewCode
-    private int img_plus;
+    private Drawable img_plus;
     private  String s_plus, p_plus, l_plus;
     int position;
 
@@ -43,10 +44,12 @@ public class MainMenuFrag1 extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_main_1, container, false);
 
         items = new ArrayList<>();
-        items.add(new Item(R.drawable.test, "대피소1","김동현","평택"));
-        items.add(new Item(R.drawable.shelter, "대피소2","김종범","안산"));
-        items.add(new Item(R.drawable.shelter, "대피소3","이학준","수원"));
-        items.add(new Item(R.drawable.shelter, "대피소4","조윤진","수원"));
+        Drawable test = getResources().getDrawable( R.drawable.test );
+        Drawable shelter = getResources().getDrawable( R.drawable.shelter );
+        items.add(new Item(test, "대피소1","김동현","평택"));
+        items.add(new Item(shelter, "대피소2","김종범","안산"));
+        items.add(new Item(shelter, "대피소3","이학준","수원"));
+        items.add(new Item(shelter, "대피소4","조윤진","수원"));
 
         mList = (ListView) rootView.findViewById(R.id.frag1_list);
         myAdapter = new MyAdapter(getContext(), items);
@@ -86,7 +89,7 @@ public class MainMenuFrag1 extends Fragment {
 
         return rootView;
     }
-    public void setSelection(int img, String s1, String s2, String s3){
+    public void setSelection(Drawable img, String s1, String s2, String s3){
             img_plus = img;
             s_plus = s1;
             p_plus = s2;
@@ -99,7 +102,7 @@ public class MainMenuFrag1 extends Fragment {
         items.remove(position1);
         myAdapter.notifyDataSetChanged();
     }
-    public void edit(int position,int img, String s1, String s2, String s3){
+    public void edit(int position,Drawable img, String s1, String s2, String s3){
         img_plus = img;
         s_plus = s1;
         p_plus = s2;
