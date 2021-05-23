@@ -19,7 +19,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
@@ -42,15 +47,27 @@ public class MainMenuFrag1 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_main_1, container, false);
-
         items = new ArrayList<>();
-        Drawable test = getResources().getDrawable( R.drawable.test );
-        Drawable shelter = getResources().getDrawable( R.drawable.shelter );
-        items.add(new Item(test, "대피소1","김동현","평택"));
-        items.add(new Item(shelter, "대피소2","김종범","안산"));
-        items.add(new Item(shelter, "대피소3","이학준","수원"));
-        items.add(new Item(shelter, "대피소4","조윤진","수원"));
 
+        Drawable shelter = getResources().getDrawable(R.drawable.shelter );
+            File file = new File(getActivity().getFilesDir(), "test.txt");
+            FileReader fr = null;
+            BufferedReader bufrd = null;
+            String s;
+            if (file.exists()) {
+                try {
+                    fr = new FileReader(file);
+                    bufrd = new BufferedReader(fr);
+                    while ((s = bufrd.readLine()) != null) {
+                        String[] split = new String(s).split(",");
+                        items.add(new Item(shelter,split[1],split[2],split[3]));
+                    }
+                    bufrd.close();
+                    fr.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         mList = (ListView) rootView.findViewById(R.id.frag1_list);
         myAdapter = new MyAdapter(getContext(), items);
         mList.setAdapter(myAdapter);
@@ -90,17 +107,19 @@ public class MainMenuFrag1 extends Fragment {
         return rootView;
     }
     public void setSelection(Drawable img, String s1, String s2, String s3){
-            img_plus = img;
-            s_plus = s1;
-            p_plus = s2;
-            l_plus = s3;
-            items.add(new Item(img_plus, s_plus, p_plus,l_plus));
-            myAdapter.notifyDataSetChanged();     // 프레그먼트 재실행
+        img_plus = img;
+        s_plus = s1;
+        p_plus = s2;
+        l_plus = s3;
+        items.add(new Item(img_plus, s_plus, p_plus,l_plus));
+        myAdapter.notifyDataSetChanged();     // 프레그먼트 재실행
+        update();
     }
     public  void remove(int position1){
         position = position1;
         items.remove(position1);
         myAdapter.notifyDataSetChanged();
+        update();
     }
     public void edit(int position,Drawable img, String s1, String s2, String s3){
         img_plus = img;
@@ -109,5 +128,23 @@ public class MainMenuFrag1 extends Fragment {
         l_plus = s3;
         items.set(position,new Item(img_plus, s_plus, p_plus,l_plus));
         myAdapter.notifyDataSetChanged();
+        update();
+    }
+    public void update() {
+        File file = new File( getActivity().getFilesDir(), "test.txt");
+        FileWriter fw = null ;
+        BufferedWriter bufwr = null ;
+        try {
+            fw = new FileWriter(file) ;
+            bufwr = new BufferedWriter(fw) ;
+            for (Item item: items) {
+                bufwr.write(item.icon+","+item.shelterName+","+item.writer+","+item.location) ;
+                bufwr.newLine();
+            }
+            bufwr.flush() ;
+        } catch (Exception e) {
+            e.printStackTrace() ;
+        }
     }
 }
+
