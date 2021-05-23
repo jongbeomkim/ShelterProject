@@ -19,7 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
+import java.io.BufferedReader;  // java.io: Java 에서 File 을 다루기 위해 사용되는 클래스들이 모인 패키지
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -49,25 +49,25 @@ public class MainMenuFrag1 extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_main_1, container, false);
         items = new ArrayList<>();
 
-        Drawable shelter = getResources().getDrawable(R.drawable.shelter );
-            File file = new File(getActivity().getFilesDir(), "test.txt");
-            FileReader fr = null;
-            BufferedReader bufrd = null;
-            String s;
-            if (file.exists()) {
-                try {
-                    fr = new FileReader(file);
-                    bufrd = new BufferedReader(fr);
-                    while ((s = bufrd.readLine()) != null) {
-                        String[] split = new String(s).split(",");
-                        items.add(new Item(shelter,split[1],split[2],split[3]));
-                    }
-                    bufrd.close();
-                    fr.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
+        Drawable shelter = getResources().getDrawable(R.drawable.shelter);
+        File file = new File(getActivity().getFilesDir(), "test.txt");  // getFilesDir(): 파일의 전체 저장 경로를 가져오는 메소드
+        FileReader fr = null;       // 파일 데이터를 읽기 위한 핸들러 fr 선언.
+        BufferedReader bufrd = null;
+        String s;
+        if (file.exists()) {   // file.exists(): 파일이 존재하는지 검사
+            try {
+                fr = new FileReader(file);    // fr 을 "file"파일을 읽기 위한 핸들러로 선언.
+                bufrd = new BufferedReader(fr);
+                while ((s = bufrd.readLine()) != null) {
+                    String[] split = new String(s).split(",");
+                    items.add(new Item(shelter,split[1],split[2],split[3]));
                 }
+                bufrd.close();
+                fr.close();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+        }
         mList = (ListView) rootView.findViewById(R.id.frag1_list);
         myAdapter = new MyAdapter(getContext(), items);
         mList.setAdapter(myAdapter);
@@ -98,50 +98,55 @@ public class MainMenuFrag1 extends Fragment {
                 intent.putExtra("code",viewCode);
                 intent.putExtra("position",position);
                 getActivity().startActivityForResult(intent, 0);
-
             }
-
-
         });
-
         return rootView;
     }
+
+
+    // 리스트에 대피소 정보를 새로 추가하는 함수.
     public void setSelection(Drawable img, String s1, String s2, String s3){
         img_plus = img;
         s_plus = s1;
         p_plus = s2;
         l_plus = s3;
-        items.add(new Item(img_plus, s_plus, p_plus,l_plus));
-        myAdapter.notifyDataSetChanged();     // 프레그먼트 재실행
+        items.add(new Item(img_plus, s_plus, p_plus, l_plus));  // 리스트에 대피소정보 추가
         update();
+        myAdapter.notifyDataSetChanged();     // 프레그먼트 재실행 메소드
     }
+
+    // 리스트의 기존 대피소 정보를 삭제하는 함수.
     public  void remove(int position1){
         position = position1;
         items.remove(position1);
-        myAdapter.notifyDataSetChanged();
         update();
+        myAdapter.notifyDataSetChanged();     // 프레그먼트 재실행 메소드
     }
+
+    // 리스트의 기존 대피소 정보를 수정하는 함수.
     public void edit(int position,Drawable img, String s1, String s2, String s3){
         img_plus = img;
         s_plus = s1;
         p_plus = s2;
         l_plus = s3;
-        items.set(position,new Item(img_plus, s_plus, p_plus,l_plus));
-        myAdapter.notifyDataSetChanged();
+        items.set(position, new Item(img_plus, s_plus, p_plus,l_plus));  // position 위치의 리스트 정보를 새로 설정
         update();
+        myAdapter.notifyDataSetChanged();     // 프레그먼트 재실행 메소드
     }
+
+    // 리스트의 정보들을 저장소에 적용해 최신화하는 함수.
     public void update() {
         File file = new File( getActivity().getFilesDir(), "test.txt");
-        FileWriter fw = null ;
-        BufferedWriter bufwr = null ;
+        FileWriter fw = null ;     // 파일에 데이터를 쓰기위한 핸들러 fw 선언
+        BufferedWriter bufwr = null ;  // ★☆파일을 읽기 위한 버퍼 생성(버퍼가 뭔지 잘 모르겠다,,)☆★
         try {
             fw = new FileWriter(file) ;
             bufwr = new BufferedWriter(fw) ;
-            for (Item item: items) {
-                bufwr.write(item.icon+","+item.shelterName+","+item.writer+","+item.location) ;
-                bufwr.newLine();
+            for (Item item: items) {    // 리스트 데이터들 처음부터 끝까지~
+                bufwr.write(item.icon+","+item.shelterName+","+item.writer+","+item.location) ;  // 데이터 사이마다 구분자 "," 를 추가하며 test.txt 에 입력
+                bufwr.newLine();       // 각 대피소 정보마다 줄바꿈을 하여 데이터를 저장.
             }
-            bufwr.flush() ;
+            bufwr.flush();       // ★☆.flush()가 뭐지???☆★
         } catch (Exception e) {
             e.printStackTrace() ;
         }

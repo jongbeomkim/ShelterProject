@@ -26,6 +26,7 @@ public class EditActivity extends AppCompatActivity {
     private String s_name2, p_name2, l_name2;
     private EditText s_text , p_text, l_text;
     private Intent intent;
+    int code = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,7 @@ public class EditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit);
 
         intent = getIntent();
-        int code = intent.getIntExtra("viewCode",-1);
+        code = intent.getIntExtra("viewCode",-1);   // ViewActivity 에서 불려졌다면 code 가 10으로 바뀐다.
 
         checkActivity(code);
     }
@@ -51,7 +52,7 @@ public class EditActivity extends AppCompatActivity {
                 startActivityForResult(intent, 1);
                 break;
             case R.id.e_button_OK:          // 수정 완료 눌렀을 때 뷰로 값 전송
-                toDecide();
+                toDecide(code);
                 break;
             case R.id.e_button_CANCEL:
                 finish();
@@ -83,9 +84,9 @@ public class EditActivity extends AppCompatActivity {
     }
 
 
-    public void checkActivity(int code){         ///////////뷰에서 수정 눌렀을때 값 받아옴
+    public void checkActivity(int code){         // 추가 화면(from MainActivity)인지 수정 화면(from ViewActivity)인지 구분하는 함수
         switch (code){
-            case 10:
+            case 10:    // ViewActivity 에서 편집 버튼을 눌러서 왔다면~
                 intent = getIntent();
 
                 imageView = findViewById(R.id.e_image);
@@ -107,10 +108,11 @@ public class EditActivity extends AppCompatActivity {
     }
 
 
-    public void toDecide(){       // 정말 수정할 것인지 확인하는 함수
+    public void toDecide(int code){       // 정말 (수정 or 추가)할 것인지 확인하는 함수
         AlertDialog.Builder builder = new AlertDialog.Builder(EditActivity.this);
         builder.setTitle("Notice");
-        builder.setMessage("수정하시겠습니까?");
+        if(code != 10) builder.setMessage("대피소를 추가하시겠습니까?");
+        if(code == 10) builder.setMessage("대피소 정보를 수정하시겠습니까?");
         builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {   // 확인 버튼을 눌렀을 때~
             public void onClick(DialogInterface dialog, int which) {
                 intent = getIntent();
@@ -118,6 +120,7 @@ public class EditActivity extends AppCompatActivity {
                 s_text = findViewById(R.id.e_shelterName);
                 p_text = findViewById(R.id.e_provider);
                 l_text = findViewById(R.id.e_location);
+
                 intent = new Intent();
                 BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();   //이미지 동적
                 Bitmap bitmap = drawable.getBitmap();
@@ -129,7 +132,8 @@ public class EditActivity extends AppCompatActivity {
                 intent.putExtra("p_name", p_text.getText().toString());
                 intent.putExtra("l_name", l_text.getText().toString());
                 setResult(RESULT_OK, intent);
-                Toast.makeText(getBaseContext(), "대피소가 업데이트 되었습니다.", Toast.LENGTH_LONG).show();
+                if(code != 10) Toast.makeText(getBaseContext(), "대피소가 추가되었습니다.", Toast.LENGTH_LONG).show();
+                if(code == 10) Toast.makeText(getBaseContext(), "대피소가 수정되었습니다.", Toast.LENGTH_LONG).show();
                 finish();
             }
         });

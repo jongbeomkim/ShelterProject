@@ -1,8 +1,10 @@
 package com.example.teamproject2;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -61,8 +63,6 @@ public class ViewActivity extends AppCompatActivity {
     }
 
     public void mOnClick(View v) {
-        Intent intent;
-
         switch (v.getId()) {
             case R.id.v_button_EDIT:          // ViewActivity 에서 '편집'버튼을 클릭하면~
                 intent = new Intent(this, EditActivity.class);
@@ -80,13 +80,10 @@ public class ViewActivity extends AppCompatActivity {
                 intent.putExtra("p_name", m_v_provider.getText().toString());
                 intent.putExtra("l_name", m_v_location.getText().toString());
                 intent.putExtra("viewCode", 10);  //EditActivity 에서 ViewActivity 인 것을 구분하기 위한 코드
-                startActivityForResult(intent, viewCode);     // EditActivity 를 호출
+                startActivityForResult(intent, viewCode);      // EditActivity 를 호출
                 break;
             case R.id.v_button_REMOVE:
-                intent = getIntent();
-                //intent.getIntExtra("position",-1);
-                setResult(30, intent);
-                finish();
+                toDecide2();
                 break;
         }
     }
@@ -109,6 +106,7 @@ public class ViewActivity extends AppCompatActivity {
     }
 
     @Override
+    // ★☆나중에 edit 함수를 다른 곳에서 쓰지 않는다면 edit 함수를 이곳에 바로 적용가능하지 않을까?☆★
     public void onBackPressed() {
         //super.onBackPressed();
         m_v_image = (ImageView) findViewById(R.id.v_image);            // 데이터 별로 id를 가져와 a 변수에 저장하고
@@ -127,5 +125,22 @@ public class ViewActivity extends AppCompatActivity {
         setResult(40, intent);
 
         finish();
+    }
+
+    public void toDecide2(){    // 정말 삭제할 것인지 확인하는 함수
+        AlertDialog.Builder builder = new AlertDialog.Builder(ViewActivity.this);
+        builder.setTitle("Notice");
+        builder.setMessage("정말 삭제하시겠습니까?");
+        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {   // 확인 버튼을 눌렀을 때~
+            public void onClick(DialogInterface dialog, int which) {
+                intent = getIntent();
+                //intent.getIntExtra("position",-1);
+                setResult(30, intent);   // MainActivity 로 resultCode 30을 들고 돌아감.
+                Toast.makeText(getBaseContext(), "삭제되었습니다.", Toast.LENGTH_LONG).show();
+                finish();
+            }
+        });
+        builder.setNegativeButton("취소", null);   // 취소 버튼은 아무것도 실행되지 않는다.
+        builder.create().show();
     }
 }
