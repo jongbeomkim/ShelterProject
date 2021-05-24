@@ -71,13 +71,11 @@ public class ViewActivity extends AppCompatActivity {
 
                 BitmapDrawable drawable = (BitmapDrawable) m_v_image.getDrawable(); //이미지 동적
                 Bitmap bitmap = drawable.getBitmap();
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                byte[] byteArray = stream.toByteArray();
+                ByteArrayOutputStream bs = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 50, bs);
                 //  ↑ 구글링으로 찾은 이미지를 put 하는 방법인데 자세히는 모르겠음.
                 //  | 아마 bit 로 이루어진 이미지의 bit 를 배열로 저장하고 넘기는 방식인듯 함.
-
-                intent.putExtra("pic", byteArray);       // 인텐트에 값들을 넣어서
+                intent.putExtra("pic", bs.toByteArray());
                 intent.putExtra("s_name", m_v_shelterName.getText().toString());
                 intent.putExtra("p_name", m_v_provider.getText().toString());
                 intent.putExtra("l_name", m_v_location.getText().toString());

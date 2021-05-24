@@ -53,7 +53,7 @@ public class MyAdapter extends BaseAdapter {
         Item item = (Item) items.get(position);
         txt_shelter.setText(item.shelterName);
         txt_writer.setText(item.writer);
-        img_shelter.setImageDrawable(item.icon);
+        img_shelter.setImageResource(item.icon);
         Glide
                 .with(ctx)
                 .load(item.icon)

@@ -38,7 +38,7 @@ public class MainMenuFrag1 extends Fragment {
     private ImageView img;
     private static MyAdapter myAdapter;
     private int viewCode = 20;     // Frag1의 viewCode
-    private Drawable img_plus;
+    private int img_plus;
     private  String s_plus, p_plus, l_plus;
     int position;
 
@@ -60,7 +60,7 @@ public class MainMenuFrag1 extends Fragment {
                 bufrd = new BufferedReader(fr);
                 while ((s = bufrd.readLine()) != null) {
                     String[] split = new String(s).split(",");
-                    items.add(new Item(shelter,split[1],split[2],split[3]));
+                    items.add(new Item(Integer.parseInt(split[0]) ,split[1],split[2],split[3]));
                 }
                 bufrd.close();
                 fr.close();
@@ -105,7 +105,7 @@ public class MainMenuFrag1 extends Fragment {
 
 
     // 리스트에 대피소 정보를 새로 추가하는 함수.
-    public void setSelection(Drawable img, String s1, String s2, String s3){
+    public void setSelection(int img, String s1, String s2, String s3){
         img_plus = img;
         s_plus = s1;
         p_plus = s2;
@@ -124,7 +124,7 @@ public class MainMenuFrag1 extends Fragment {
     }
 
     // 리스트의 기존 대피소 정보를 수정하는 함수.
-    public void edit(int position,Drawable img, String s1, String s2, String s3){
+    public void edit(int position,int img, String s1, String s2, String s3){
         img_plus = img;
         s_plus = s1;
         p_plus = s2;
