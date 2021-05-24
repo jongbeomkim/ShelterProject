@@ -63,6 +63,8 @@ public class ViewActivity extends AppCompatActivity {
     }
 
     public void mOnClick(View v) {
+        Intent intent;  // ←-- 이걸 없애면 Main → View → Edit → View 상태에서 뒤로가기를 누르면 팅긴다. Why...?
+
         switch (v.getId()) {
             case R.id.v_button_EDIT:          // ViewActivity 에서 '편집'버튼을 클릭하면~
                 intent = new Intent(this, EditActivity.class);
