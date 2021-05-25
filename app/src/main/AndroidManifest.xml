@@ -11,8 +11,7 @@
         android:theme="@style/Theme.TeamProject2">
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/SplashTheme">
-        </activity>
+            android:theme="@style/SplashTheme"></activity>
         <activity android:name=".EditActivity" />
         <activity android:name=".ViewActivity" />
         <activity android:name=".MainActivity">

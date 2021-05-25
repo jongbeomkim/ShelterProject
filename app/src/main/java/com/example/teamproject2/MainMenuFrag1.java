@@ -60,7 +60,7 @@ public class MainMenuFrag1 extends Fragment {
                 bufrd = new BufferedReader(fr);
                 while ((s = bufrd.readLine()) != null) {
                     String[] split = new String(s).split(",");
-                    items.add(new Item(Integer.parseInt(split[0]) ,split[1],split[2],split[3]));
+                    items.add(new Item(Integer.parseInt(split[0]) , split[1], split[2], split[3]));
                 }
                 bufrd.close();
                 fr.close();

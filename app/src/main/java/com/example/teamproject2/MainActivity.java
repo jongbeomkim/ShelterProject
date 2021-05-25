@@ -35,9 +35,9 @@ public class MainActivity extends AppCompatActivity {
     public Fragment[] fragment = new Fragment[]{
             new MainMenuFrag1(), new MainMenuFrag2(), new MainMenuFrag3(),
             new MainMenuFrag4(), new MainMenuFrag5(), new MainMenuFrag6()
-
     };
 
+    Fragment searchFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment[0]).commit();
         // btn 배열을 초기화
-
         for (int i = 0; i < btn.length; i++) {
             btn[i] = (Button) findViewById(btnId[i]);
         }
@@ -63,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+
+        searchFragment = new SearchFragment();
     }
 
 
@@ -77,7 +78,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
         switch (item.getItemId()) {
-            case R.id.edit:
+            case R.id.search:       // 메뉴바에서 검색 버튼을 클릭할 경우
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, searchFragment).commit();
+                break;
+            case R.id.edit:         // 메뉴바에서 수정 버튼을 클릭할 경우
                 intent = new Intent(this, EditActivity.class);
                 startActivityForResult(intent, 11);
                 break;
