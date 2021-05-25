@@ -95,7 +95,7 @@ public class MainMenuFrag1 extends Fragment {
                 intent.putExtra("shelterName", shelterName.getText().toString());     //뷰 액티비티로 갈때 값 넘김
                 intent.putExtra("writer", writer.getText().toString());
                 intent.putExtra("location",items.get(position).location);
-                intent.putExtra("code",viewCode);
+                //intent.putExtra("code",viewCode);
                 intent.putExtra("position",position);
                 getActivity().startActivityForResult(intent, 0);
             }

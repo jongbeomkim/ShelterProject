@@ -15,7 +15,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -116,6 +118,11 @@ public class MainActivity extends AppCompatActivity {
             int po = data.getIntExtra("position", -1);
             ((MainMenuFrag1) fragment[0]).remove(po);
         }
+        else if ((requestCode==50)&&(resultCode==30)) {           // Search>>ViewActivity 에서 삭제를 눌러 돌아왔을때~
+            int po = data.getIntExtra("position", -1);
+            //((MainMenuFrag1) fragment[0]).remove(po);  얘가 오류나서 실행이 안됨
+        }
+
         else if ((requestCode==0)&&(resultCode==40)){            // ViewActivity 에서 뒤로가기 버튼을 눌러서 왔을 때~
             byte[] byteArray = data.getByteArrayExtra("icon");
             Bitmap image = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
@@ -126,7 +133,6 @@ public class MainActivity extends AppCompatActivity {
             String l = data.getStringExtra("l_name");
             ((MainMenuFrag1) fragment[0]).edit(po,R.drawable.shelter, s, p, l);
         }
-
     }
 
     @Override

@@ -127,7 +127,7 @@ public class SearchFragment extends Fragment {
                 intent.putExtra("location", searchList.get(position).location);
                 intent.putExtra("code", viewCode);
                 intent.putExtra("position", position);
-                getActivity().startActivityForResult(intent, 0);
+                getActivity().startActivityForResult(intent, 50);
             }
         });
 
@@ -151,4 +151,5 @@ public class SearchFragment extends Fragment {
 
         adapter.notifyDataSetChanged();
     }
+
 }

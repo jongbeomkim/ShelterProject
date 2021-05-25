@@ -32,35 +32,24 @@ public class ViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view);
-
         intent = getIntent();
-        int code = intent.getIntExtra("code", -1);
+        m_v_image = (ImageView) findViewById(R.id.v_image);            // 데이터 별로 id를 가져와 a 변수에 저장하고
+        m_v_shelterName = (TextView) findViewById(R.id.v_shelterName);
+        m_v_provider = (TextView) findViewById(R.id.v_provider);
+        m_v_location = (TextView) findViewById(R.id.v_location);
 
-        checkActivity(code);
+        byte[] byteArray = intent.getByteArrayExtra("icon");    // b 변수에 intent 내부에 들어있는 데이터들을 get 을 사용하여 저장한 뒤
+        Bitmap image = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+        s_name1 = intent.getStringExtra("shelterName");
+        p_name1 = intent.getStringExtra("writer");
+        l_name1 = intent.getStringExtra("location");
 
+        m_v_image.setImageBitmap(image);                              // a 변수에(id에 해당하는 곳에) b 변수에 저장된 데이터를 set 으로 설정한다.
+        m_v_shelterName.setText(s_name1);
+        m_v_provider.setText(p_name1);
+        m_v_location.setText(l_name1);
     }
 
-    public void checkActivity(int code) {
-        switch (code) {
-            case 20:                                                          // Frag1에서 불렀다면~ (대피소를 보기 위해 리스트 하나를 클릭했다면)
-                intent = getIntent();
-                m_v_image = (ImageView) findViewById(R.id.v_image);            // 데이터 별로 id를 가져와 a 변수에 저장하고
-                m_v_shelterName = (TextView) findViewById(R.id.v_shelterName);
-                m_v_provider = (TextView) findViewById(R.id.v_provider);
-                m_v_location = (TextView) findViewById(R.id.v_location);
-
-                byte[] byteArray = intent.getByteArrayExtra("icon");    // b 변수에 intent 내부에 들어있는 데이터들을 get 을 사용하여 저장한 뒤
-                Bitmap image = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-                s_name1 = intent.getStringExtra("shelterName");
-                p_name1 = intent.getStringExtra("writer");
-                l_name1 = intent.getStringExtra("location");
-
-                m_v_image.setImageBitmap(image);                              // a 변수에(id에 해당하는 곳에) b 변수에 저장된 데이터를 set 으로 설정한다.
-                m_v_shelterName.setText(s_name1);
-                m_v_provider.setText(p_name1);
-                m_v_location.setText(l_name1);
-        }
-    }
 
     public void mOnClick(View v) {
         Intent intent;  // ←-- 이걸 없애면 Main → View → Edit → View 상태에서 뒤로가기를 누르면 팅긴다. Why...?
