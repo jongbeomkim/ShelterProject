@@ -113,6 +113,7 @@ public class ViewActivity extends AppCompatActivity {
         m_v_shelterName = (TextView) findViewById(R.id.v_shelterName);
         m_v_provider = (TextView) findViewById(R.id.v_provider);
         m_v_location = (TextView) findViewById(R.id.v_location);
+
         BitmapDrawable drawable = (BitmapDrawable) m_v_image.getDrawable(); //이미지 동적
         Bitmap bitmap = drawable.getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();

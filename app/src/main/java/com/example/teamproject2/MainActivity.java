@@ -3,6 +3,7 @@ package com.example.teamproject2;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,11 +16,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.Toast;
-
-import java.net.Inet4Address;
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
             new MainMenuFrag1(), new MainMenuFrag2(), new MainMenuFrag3(),
             new MainMenuFrag4(), new MainMenuFrag5(), new MainMenuFrag6()
     };
-
     Fragment searchFragment;
 
     @Override
@@ -62,8 +57,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-
-        searchFragment = new SearchFragment();
     }
 
 
@@ -79,6 +72,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent;
         switch (item.getItemId()) {
             case R.id.search:       // 메뉴바에서 검색 버튼을 클릭할 경우
+                for(int i=0; i<btn.length; i++){
+                    btn[i].setVisibility(View.GONE);
+                }
+                searchFragment = new SearchFragment();
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, searchFragment).commit();
                 break;
             case R.id.edit:         // 메뉴바에서 수정 버튼을 클릭할 경우
@@ -88,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 
     // 버튼을 6개 중 한 개 선택했을 경우 해당 버튼만 true로 하고 나머지는 false로 해주는 메서드
     public void isBtnSelected(Button tempButton) {
@@ -114,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
             String l = data.getStringExtra("l_name");
             byte[] byteArray = data.getByteArrayExtra("icon");
             Bitmap image = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-            ((MainMenuFrag1) fragment[0]).setSelection(R.drawable.shelter, s, p, l);
+            //((MainMenuFrag1) fragment[0]).setSelection(R.drawable.shelter, s, p, l);
         }
         else if ((requestCode==0)&&(resultCode==30)) {           // ViewActivity 에서 삭제를 눌러 돌아왔을때~
             int po = data.getIntExtra("position", -1);
@@ -128,22 +124,32 @@ public class MainActivity extends AppCompatActivity {
             String s = data.getStringExtra("s_name");             // 문자열 변수에 EditActivity 에서 put 한 데이터를 get 으로 가져오고
             String p = data.getStringExtra("p_name");
             String l = data.getStringExtra("l_name");
-            ((MainMenuFrag1) fragment[0]).edit(po,R.drawable.shelter, s, p, l);
+            //((MainMenuFrag1) fragment[0]).edit(po,R.drawable.shelter, s, p, l);
         }
 
     }
 
     @Override
     public void onBackPressed(){      // 메인에서 뒤로가기를 눌렀을 때 앱을 종료할 것인지 확인하는 함수
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("Notice");
-        builder.setMessage("앱을 종료하시겠습니까?");
-        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                android.os.Process.killProcess(android.os.Process.myPid());
+        if(searchFragment != null){             // 검색 프래그먼트가 떠 있을때 뒤로가기를 하면 실행
+            getSupportFragmentManager().beginTransaction().remove(searchFragment).commit();     // searchFragment를 삭제
+            searchFragment = null;
+            for(int i=0; i<btn.length; i++){
+                btn[i].setVisibility(View.VISIBLE);
             }
-        });
-        builder.setNegativeButton("취소", null);
-        builder.create().show();
+            getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment[0]).commit();
+        }else {         // 검색 프래그먼트가 없는 메인화면 상태일때 실행
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("Notice");
+            builder.setMessage("앱을 종료하시겠습니까?");
+            builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    android.os.Process.killProcess(android.os.Process.myPid());
+                }
+            });
+            builder.setNegativeButton("취소", null);
+            builder.create().show();
+            super.onBackPressed();
+        }
     }
 }
