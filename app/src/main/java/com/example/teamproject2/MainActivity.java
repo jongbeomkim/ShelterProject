@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
             String l = data.getStringExtra("l_name");
             byte[] byteArray = data.getByteArrayExtra("icon");
             Bitmap image = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-            //((MainMenuFrag1) fragment[0]).setSelection(R.drawable.shelter, s, p, l);
+            ((MainMenuFrag1) fragment[0]).setSelection(R.drawable.shelter, s, p, l);
         }
         else if ((requestCode==0)&&(resultCode==30)) {           // ViewActivity 에서 삭제를 눌러 돌아왔을때~
             int po = data.getIntExtra("position", -1);
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
             String s = data.getStringExtra("s_name");             // 문자열 변수에 EditActivity 에서 put 한 데이터를 get 으로 가져오고
             String p = data.getStringExtra("p_name");
             String l = data.getStringExtra("l_name");
-            //((MainMenuFrag1) fragment[0]).edit(po,R.drawable.shelter, s, p, l);
+            ((MainMenuFrag1) fragment[0]).edit(po,R.drawable.shelter, s, p, l);
         }
 
     }
@@ -137,7 +137,10 @@ public class MainActivity extends AppCompatActivity {
             for(int i=0; i<btn.length; i++){
                 btn[i].setVisibility(View.VISIBLE);
             }
+
+            // 메인액티비티로 돌아가면 민방공대피소(1번째) 보여줌
             getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment[0]).commit();
+            isBtnSelected(btn[0]);
         }else {         // 검색 프래그먼트가 없는 메인화면 상태일때 실행
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setTitle("Notice");
@@ -149,7 +152,6 @@ public class MainActivity extends AppCompatActivity {
             });
             builder.setNegativeButton("취소", null);
             builder.create().show();
-            super.onBackPressed();
         }
     }
 }
