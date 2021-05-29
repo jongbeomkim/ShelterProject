@@ -19,8 +19,9 @@ import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
 
+public class MainActivity extends AppCompatActivity {
     private int mainCode = 11;
     // activity_main.xml에 있는 버튼들을 묶어서 저장함
     private int[] btnId = new int[]{
@@ -112,15 +113,20 @@ public class MainActivity extends AppCompatActivity {
             String l = data.getStringExtra("l_name");
             byte[] byteArray = data.getByteArrayExtra("icon");
             Bitmap image = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-            ((MainMenuFrag1) fragment[0]).setSelection(R.drawable.shelter, s, p, l);
+            MainMenuFrag1.items.add(new Item(R.drawable.shelter, s, p, l));  //static items 받아서 추가
+           ((MainMenuFrag1) fragment[0]).update();  //업데이트
+           MainMenuFrag1.myAdapter.notifyDataSetChanged();
+
         }
         else if ((requestCode==0)&&(resultCode==30)) {           // ViewActivity 에서 삭제를 눌러 돌아왔을때~
             int po = data.getIntExtra("position", -1);
-            ((MainMenuFrag1) fragment[0]).remove(po);
+            MainMenuFrag1.items.remove(po);
+            ((MainMenuFrag1) fragment[0]).update();
+            MainMenuFrag1.myAdapter.notifyDataSetChanged();
         }
         else if ((requestCode==50)&&(resultCode==30)) {           // Search>>ViewActivity 에서 삭제를 눌러 돌아왔을때~
             int po = data.getIntExtra("position", -1);
-            //((MainMenuFrag1) fragment[0]).remove(po);  얘가 오류나서 실행이 안됨
+            //((MainMenuFrag1) fragment[0]).remove(po);  얘가 오류나서 실행이 안됨 이유 모름;
         }
 
         else if ((requestCode==0)&&(resultCode==40)){            // ViewActivity 에서 뒤로가기 버튼을 눌러서 왔을 때~
@@ -131,7 +137,10 @@ public class MainActivity extends AppCompatActivity {
             String s = data.getStringExtra("s_name");             // 문자열 변수에 EditActivity 에서 put 한 데이터를 get 으로 가져오고
             String p = data.getStringExtra("p_name");
             String l = data.getStringExtra("l_name");
-            ((MainMenuFrag1) fragment[0]).edit(po,R.drawable.shelter, s, p, l);
+            MainMenuFrag1.items.set(po, new Item(R.drawable.shelter,s,p,l));  // position 위치의 리스트 정보를 새로 설정
+            ((MainMenuFrag1) fragment[0]).update();
+            MainMenuFrag1.myAdapter.notifyDataSetChanged();
+
         }
     }
 

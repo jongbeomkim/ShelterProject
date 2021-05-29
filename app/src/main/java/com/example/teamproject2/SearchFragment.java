@@ -32,7 +32,7 @@ import java.util.ArrayList;
 
 public class SearchFragment extends Fragment {
 
-    private ArrayList<Item> searchList;     // 검색리스트
+
     private ArrayList<Item> cloneList;      // 검색리스트 복사본
     private ListView listView;
     private EditText editSearch;
@@ -53,33 +53,16 @@ public class SearchFragment extends Fragment {
         editSearch = (EditText)rootView.findViewById(R.id.search_editText);
         listView = (ListView)rootView.findViewById(R.id.search_list);
 
-        searchList = new ArrayList<Item>();
+
 
         // 리스트 내용을 저장소에서 가져오는 부분
-        File file = new File(getActivity().getFilesDir(), "test.txt");  // getFilesDir(): 파일의 전체 저장 경로를 가져오는 메소드
-        FileReader fr = null;       // 파일 데이터를 읽기 위한 핸들러 fr 선언.
-        BufferedReader bufrd = null;
-        String s;
-        if (file.exists()) {   // file.exists(): 파일이 존재하는지 검사
-            try {
-                fr = new FileReader(file);    // fr 을 "file"파일을 읽기 위한 핸들러로 선언.
-                bufrd = new BufferedReader(fr);
-                while ((s = bufrd.readLine()) != null) {
-                    String[] split = new String(s).split(",");
-                    searchList.add(new Item(Integer.parseInt(split[0]) , split[1], split[2], split[3]));
-                }
-                bufrd.close();
-                fr.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
 
+        ArrayList<Item> item=MainMenuFrag1.items;
         cloneList = new ArrayList<Item>();
-        cloneList.addAll(searchList);
+        cloneList.addAll(MainMenuFrag1.items);
 
         // 어댑터 생성 후 listView에 어댑터 연결
-        adapter = new MyAdapter(rootView.getContext(), searchList);
+        adapter = new MyAdapter(rootView.getContext(), MainMenuFrag1.items);
         listView.setAdapter(adapter);
 
         editSearch.addTextChangedListener(new TextWatcher() {       // 입력창에 값이 입력될 때마다 실행
@@ -124,10 +107,10 @@ public class SearchFragment extends Fragment {
                 intent.putExtra("icon", byteArray);
                 intent.putExtra("shelterName", shelterName.getText().toString());     //뷰 액티비티로 갈때 값 넘김
                 intent.putExtra("writer", writer.getText().toString());
-                intent.putExtra("location", searchList.get(position).location);
+                intent.putExtra("location", MainMenuFrag1.items.get(position).location);
                 intent.putExtra("code", viewCode);
                 intent.putExtra("position", position);
-                getActivity().startActivityForResult(intent, 50);
+                getActivity().startActivityForResult(intent, 0);
             }
         });
 
@@ -136,15 +119,15 @@ public class SearchFragment extends Fragment {
 
     // 문자열을 입력받으면 해당 문자가 포함된 원소 모두 출력
     public void search(String text){
-        searchList.clear();
+        MainMenuFrag1.items.clear();
 
         if(text.length() == 0){     // 아무것도 입력하지 않았을 때 리스트 전체를 보여줌
-            searchList.addAll(cloneList);
+            MainMenuFrag1.items.addAll(cloneList);
         } else{
             for(int i=0; i<cloneList.size(); i++){
                 // 리스트를 돌면서 각 리스트마다.대피소명을 가져오고.이를 소문자로 변환하고 그 값에.text 문자열이 포함되어 있는지 확인
                 if(cloneList.get(i).shelterName.toLowerCase().contains(text)){
-                    searchList.add(cloneList.get(i));
+                    MainMenuFrag1.items.add(cloneList.get(i));
                 }
             }
         }

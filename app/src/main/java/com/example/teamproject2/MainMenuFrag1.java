@@ -1,5 +1,6 @@
 package com.example.teamproject2;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -31,12 +32,12 @@ import static android.app.Activity.RESULT_OK;
 
 public class MainMenuFrag1 extends Fragment {
 
-    ArrayList<Item> items;
+    static ArrayList<Item> items;
     ListView mList;
     private TextView shelterName;
     private TextView writer;
     private ImageView img;
-    private static MyAdapter myAdapter;
+    static MyAdapter myAdapter;
     private int viewCode = 20;     // Frag1의 viewCode
     private int img_plus;
     private  String s_plus, p_plus, l_plus;
@@ -45,6 +46,7 @@ public class MainMenuFrag1 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_main_1, container, false);
         items = new ArrayList<>();
@@ -105,7 +107,8 @@ public class MainMenuFrag1 extends Fragment {
 
 
     // 리스트에 대피소 정보를 새로 추가하는 함수.
-    public void setSelection(int img, String s1, String s2, String s3){
+    //static으로 list 직접 추가 수정 해서 팔요 없어졌으나 혹시 몰라서 남김
+  /*  public void setSelection(int img, String s1, String s2, String s3){
         img_plus = img;
         s_plus = s1;
         p_plus = s2;
@@ -133,9 +136,8 @@ public class MainMenuFrag1 extends Fragment {
         update();
         myAdapter.notifyDataSetChanged();     // 프레그먼트 재실행 메소드
     }
-
-    // 리스트의 정보들을 저장소에 적용해 최신화하는 함수.
-    public void update() {
+    // 리스트의 정보들을 저장소에 적용해 최신화하는 함수.*/
+    public  void update() {
         File file = new File( getActivity().getFilesDir(), "test.txt");
         FileWriter fw = null ;     // 파일에 데이터를 쓰기위한 핸들러 fw 선언
         BufferedWriter bufwr = null ;  // ★☆파일을 읽기 위한 버퍼 생성(버퍼가 뭔지 잘 모르겠다,,)☆★
