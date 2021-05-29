@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,6 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
+
+import static com.example.teamproject2.MainMenuFrag1.items;
 
 public class ViewActivity extends AppCompatActivity {
 
@@ -30,6 +34,7 @@ public class ViewActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view);
         intent = getIntent();
@@ -113,7 +118,6 @@ public class ViewActivity extends AppCompatActivity {
         intent.putExtra("p_name", m_v_provider.getText().toString());
         intent.putExtra("l_name", m_v_location.getText().toString());
         setResult(40, intent);
-
         finish();
     }
 

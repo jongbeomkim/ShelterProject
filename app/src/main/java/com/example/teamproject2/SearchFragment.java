@@ -36,7 +36,7 @@ public class SearchFragment extends Fragment {
     private ArrayList<Item> cloneList;      // 검색리스트 복사본
     private ListView listView;
     private EditText editSearch;
-    private MyAdapter adapter;
+    static MyAdapter adapter;
     private int viewCode = 30;
 
     public static SearchFragment newInstance() {
@@ -110,7 +110,7 @@ public class SearchFragment extends Fragment {
                 intent.putExtra("location", MainMenuFrag1.items.get(position).location);
                 intent.putExtra("code", viewCode);
                 intent.putExtra("position", position);
-                getActivity().startActivityForResult(intent, 50);
+                getActivity().startActivityForResult(intent, 0);
             }
         });
 

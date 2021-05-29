@@ -136,8 +136,8 @@ public class MainMenuFrag1 extends Fragment {
         update();
         myAdapter.notifyDataSetChanged();     // 프레그먼트 재실행 메소드
     }
-    // 리스트의 정보들을 저장소에 적용해 최신화하는 함수.*/
-    public  void update() {
+    // 리스트의 정보들을 저장소에 적용해 최신화하는 함수.
+    public void update() {
         File file = new File( getActivity().getFilesDir(), "test.txt");
         FileWriter fw = null ;     // 파일에 데이터를 쓰기위한 핸들러 fw 선언
         BufferedWriter bufwr = null ;  // ★☆파일을 읽기 위한 버퍼 생성(버퍼가 뭔지 잘 모르겠다,,)☆★
@@ -152,6 +152,6 @@ public class MainMenuFrag1 extends Fragment {
         } catch (Exception e) {
             e.printStackTrace() ;
         }
-    }
+    }*/
 }
 
