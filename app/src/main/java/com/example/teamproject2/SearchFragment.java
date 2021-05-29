@@ -110,7 +110,7 @@ public class SearchFragment extends Fragment {
                 intent.putExtra("location", MainMenuFrag1.items.get(position).location);
                 intent.putExtra("code", viewCode);
                 intent.putExtra("position", position);
-                getActivity().startActivityForResult(intent, 0);
+                getActivity().startActivityForResult(intent, 50);
             }
         });
 
