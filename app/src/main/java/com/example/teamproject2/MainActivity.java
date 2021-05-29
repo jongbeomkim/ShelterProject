@@ -124,15 +124,16 @@ public class MainActivity extends AppCompatActivity {
             items.add(new Item(R.drawable.shelter, s, p, l));  //static items 받아서 추가  static 안쓸라면 getitem만들어서 받아와야할듯?
             update();
             MainMenuFrag1.myAdapter.notifyDataSetChanged();  //static 안쓸라면 getAdapter만들어서 받아와야할듯?
-            SearchFragment.adapter.notifyDataSetChanged();//static 안쓸라면 getAdapter만들어서 받아와야할듯?
-
+           // SearchFragment.adapter.notifyDataSetChanged();//static 안쓸라면 getAdapter만들어서 받아와야할듯?
+            /////★★★★★이 부분이 search 안들어왔다 나오면 생성이 안되서 팅기
         }
         else if ((requestCode==0)&&(resultCode==30)) {           // ViewActivity 에서 삭제를 눌러 돌아왔을때~
             int po = data.getIntExtra("position", -1);
             items.remove(po);
             update();
             MainMenuFrag1.myAdapter.notifyDataSetChanged();//static 안쓸라면 getAdapter만들어서 받아와야할듯?
-            SearchFragment.adapter.notifyDataSetChanged();//static 안쓸라면 getAdapter만들어서 받아와야할듯?
+           // SearchFragment.adapter.notifyDataSetChanged();//static 안쓸라면 getAdapter만들어서 받아와야할듯?
+            /////★★★★★이 부분이 search 안들어왔다 나오면 생성이 안되서 팅기
         }
 
         else if ((requestCode==0)&&(resultCode==40)){            // ViewActivity 에서 뒤로가기 버튼을 눌러서 왔을 때~
@@ -146,7 +147,8 @@ public class MainActivity extends AppCompatActivity {
             items.set(po, new Item(R.drawable.shelter,s,p,l));  // position 위치의 리스트 정보를 새로 설정
             update();
             MainMenuFrag1.myAdapter.notifyDataSetChanged();//static 안쓸라면 getAdapter만들어서 받아와야할듯?
-            SearchFragment.adapter.notifyDataSetChanged();//static 안쓸라면 getAdapter만들어서 받아와야할듯?
+           // SearchFragment.adapter.notifyDataSetChanged();//static 안쓸라면 getAdapter만들어서 받아와야할듯?
+            /////★★★★★이 부분이 search 안들어왔다 나오면 생성이 안되서 팅기
         }
     }
 
