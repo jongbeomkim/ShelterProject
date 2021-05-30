@@ -36,7 +36,6 @@ public class SearchFragment extends Fragment {
     private ArrayList<Item> cloneList;      // 검색리스트 복사본
     private ListView listView;
     private EditText editSearch;
-    static MyAdapter adapter;
     private int viewCode = 30;
 
     public static SearchFragment newInstance() {
@@ -56,14 +55,11 @@ public class SearchFragment extends Fragment {
 
 
         // 리스트 내용을 저장소에서 가져오는 부분
-
-        ArrayList<Item> item=MainMenuFrag1.items;
-        cloneList = new ArrayList<Item>();
+        cloneList = new ArrayList<>();
         cloneList.addAll(MainMenuFrag1.items);
 
         // 어댑터 생성 후 listView에 어댑터 연결
-        adapter = new MyAdapter(rootView.getContext(), MainMenuFrag1.items);
-        listView.setAdapter(adapter);
+        listView.setAdapter(MainMenuFrag1.myAdapter);  //frag1이랑 같은 adapter를 사용
 
         editSearch.addTextChangedListener(new TextWatcher() {       // 입력창에 값이 입력될 때마다 실행
             @Override
@@ -110,7 +106,7 @@ public class SearchFragment extends Fragment {
                 intent.putExtra("location", MainMenuFrag1.items.get(position).location);
                 intent.putExtra("code", viewCode);
                 intent.putExtra("position", position);
-                getActivity().startActivityForResult(intent, 50);
+                getActivity().startActivityForResult(intent, 0);
             }
         });
 
@@ -132,7 +128,7 @@ public class SearchFragment extends Fragment {
             }
         }
 
-        adapter.notifyDataSetChanged();
+        MainMenuFrag1.myAdapter.notifyDataSetChanged();
     }
 
 }
