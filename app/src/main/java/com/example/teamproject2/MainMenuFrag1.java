@@ -39,7 +39,8 @@ public class MainMenuFrag1 extends Fragment {
     private int viewCode = 20;     // Frag1의 viewCode
     private int img_plus;
     private  String s_plus, p_plus, l_plus;
-    int position;
+
+    Storage storage = new Storage();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,24 +52,10 @@ public class MainMenuFrag1 extends Fragment {
         Storage.items = new ArrayList<>();
 
         Drawable shelter = getResources().getDrawable(R.drawable.shelter);
-        File file = new File(getActivity().getFilesDir(), "test.txt");  // getFilesDir(): 파일의 전체 저장 경로를 가져오는 메소드
-        FileReader fr = null;       // 파일 데이터를 읽기 위한 핸들러 fr 선언.
-        BufferedReader bufrd = null;
-        String s;
-        if (file.exists()) {   // file.exists(): 파일이 존재하는지 검사
-            try {
-                fr = new FileReader(file);    // fr 을 "file"파일을 읽기 위한 핸들러로 선언.
-                bufrd = new BufferedReader(fr);
-                while ((s = bufrd.readLine()) != null) {
-                    String[] split = new String(s).split(",");
-                    Storage.items.add(new Item(Integer.parseInt(split[0]) , split[1], split[2], split[3]));
-                }
-                bufrd.close();
-                fr.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+
+        // 데이터를 읽어옴 
+        storage.readStorage();
+
         mList = (ListView) rootView.findViewById(R.id.frag1_list);
         myAdapter = new MyAdapter(getContext(), Storage.items);
         mList.setAdapter(myAdapter);
@@ -103,7 +90,6 @@ public class MainMenuFrag1 extends Fragment {
         });
         return rootView;
     }
-
 
     // 리스트에 대피소 정보를 새로 추가하는 함수.
     //static으로 list 직접 추가 수정 해서 팔요 없어졌으나 혹시 몰라서 남김

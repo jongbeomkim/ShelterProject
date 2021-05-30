@@ -27,7 +27,7 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    Storage storage=new Storage();
+    Storage storage = new Storage();
     private int mainCode = 11;
     // activity_main.xml에 있는 버튼들을 묶어서 저장함
     private int[] btnId = new int[]{

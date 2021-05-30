@@ -32,10 +32,10 @@ import java.util.ArrayList;
 
 public class SearchFragment extends Fragment {
 
-
     private ArrayList<Item> cloneList;      // 검색리스트 복사본
     private ListView listView;
     private EditText editSearch;
+    private MyAdapter searchAdapter;
     private int viewCode = 30;
 
 
@@ -53,14 +53,14 @@ public class SearchFragment extends Fragment {
         editSearch = (EditText)rootView.findViewById(R.id.search_editText);
         listView = (ListView)rootView.findViewById(R.id.search_list);
 
-
-
         // 리스트 내용을 저장소에서 가져오는 부분
         cloneList = new ArrayList<>();
         cloneList.addAll(Storage.items);
 
+        searchAdapter = new MyAdapter(getContext(), cloneList);
+
         // 어댑터 생성 후 listView에 어댑터 연결
-        listView.setAdapter(MainMenuFrag1.myAdapter);  //frag1이랑 같은 adapter를 사용
+        listView.setAdapter(searchAdapter);  // frag1이랑 같은 adapter를 사용
 
         editSearch.addTextChangedListener(new TextWatcher() {       // 입력창에 값이 입력될 때마다 실행
             @Override
@@ -101,7 +101,6 @@ public class SearchFragment extends Fragment {
                 byte[] byteArray = stream.toByteArray();
                 Intent intent;
                 intent = new Intent(getContext(), ViewActivity.class);
-                intent.putExtra("pos", position);
                 intent.putExtra("icon", byteArray);
                 intent.putExtra("shelterName", shelterName.getText().toString());     //뷰 액티비티로 갈때 값 넘김
                 intent.putExtra("writer", writer.getText().toString());
@@ -115,24 +114,34 @@ public class SearchFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        cloneList.clear();
+        cloneList.addAll(Storage.items);
+
+        searchAdapter.notifyDataSetChanged();
+    }
+
     // 문자열을 입력받으면 해당 문자가 포함된 원소 모두 출력
     //★★버그 확인걸과 : 이전에도 존재하던 버그들
     //검색후 수정후 뒤로가면 Mainflag가 검색 된 부분으로 바껴서 리스트가 초기화(Clear실행 후 검색된거로 바낀후 안돌아오는듯)
     public void search(String text){
-        Storage.items.clear();
+        cloneList.clear();
 
         if(text.length() == 0){     // 아무것도 입력하지 않았을 때 리스트 전체를 보여줌
-            Storage.items.addAll(cloneList);
+            cloneList.addAll(Storage.items);
         } else{
-            for(int i=0; i<cloneList.size(); i++){
+            for(int i=0; i<Storage.items.size(); i++){
                 // 리스트를 돌면서 각 리스트마다.대피소명을 가져오고.이를 소문자로 변환하고 그 값에.text 문자열이 포함되어 있는지 확인
-                if(cloneList.get(i).shelterName.toLowerCase().contains(text)){
-                    Storage.items.add(cloneList.get(i));
+                if(Storage.items.get(i).shelterName.toLowerCase().contains(text)){
+                    cloneList.add(Storage.items.get(i));
                 }
             }
         }
 
-        MainMenuFrag1.myAdapter.notifyDataSetChanged();
+        searchAdapter.notifyDataSetChanged();
     }
 
 }

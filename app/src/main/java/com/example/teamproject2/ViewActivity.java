@@ -115,7 +115,6 @@ public class ViewActivity extends AppCompatActivity {
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] byteArray = stream.toByteArray();
         intent.putExtra("icon", byteArray);
-        intent.putExtra("pos", position);
         intent.putExtra("s_name", m_v_shelterName.getText().toString());
         intent.putExtra("p_name", m_v_provider.getText().toString());
         intent.putExtra("l_name", m_v_location.getText().toString());
