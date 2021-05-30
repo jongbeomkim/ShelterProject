@@ -101,6 +101,7 @@ public class SearchFragment extends Fragment {
                 byte[] byteArray = stream.toByteArray();
                 Intent intent;
                 intent = new Intent(getContext(), ViewActivity.class);
+                intent.putExtra("pos", position);
                 intent.putExtra("icon", byteArray);
                 intent.putExtra("shelterName", shelterName.getText().toString());     //뷰 액티비티로 갈때 값 넘김
                 intent.putExtra("writer", writer.getText().toString());

@@ -27,7 +27,6 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    Storage storage=new Storage();
     private int mainCode = 11;
     // activity_main.xml에 있는 버튼들을 묶어서 저장함
     private int[] btnId = new int[]{
@@ -120,13 +119,12 @@ public class MainActivity extends AppCompatActivity {
             byte[] byteArray = data.getByteArrayExtra("icon");
             Bitmap image = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
             Storage.items.add(new Item(R.drawable.shelter, s, p, l));  //static items 받아서 추가  static 안쓸라면 getitem만들어서 받아와야할듯?
-            update();
+            Storage.storage.writeStorage();
             MainMenuFrag1.myAdapter.notifyDataSetChanged();  //static 안쓸라면 getAdapter만들어서 받아와야할듯?
         }
         else if ((requestCode==0)&&(resultCode==30)) {           // ViewActivity 에서 삭제를 눌러 돌아왔을때~
             int po = data.getIntExtra("position", -1);
-            Storage.items.remove(po);
-            update();
+            Storage.storage.delete(po);
             MainMenuFrag1.myAdapter.notifyDataSetChanged();//static 안쓸라면 getAdapter만들어서 받아와야할듯?
         }
         else if ((requestCode==0)&&(resultCode==40)){            // ViewActivity 에서 뒤로가기 버튼을 눌러서 왔을 때~
@@ -138,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
             String p = data.getStringExtra("p_name");
             String l = data.getStringExtra("l_name");
             Storage.items.set(po, new Item(R.drawable.shelter,s,p,l));  // position 위치의 리스트 정보를 새로 설정
-            update();
+            Storage.storage.update(po, R.drawable.shelter, s, p, l);
             MainMenuFrag1.myAdapter.notifyDataSetChanged();//static 안쓸라면 getAdapter만들어서 받아와야할듯?
 
         }
@@ -171,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void update() {
         File file = new File( getFilesDir(), "test.txt");
+        Toast.makeText(this, getFilesDir().toString(), Toast.LENGTH_SHORT).show();
         FileWriter fw = null ;     // 파일에 데이터를 쓰기위한 핸들러 fw 선언
         BufferedWriter bufwr = null ;  // ★☆파일을 읽기 위한 버퍼 생성(버퍼가 뭔지 잘 모르겠다,,)☆★
         try {

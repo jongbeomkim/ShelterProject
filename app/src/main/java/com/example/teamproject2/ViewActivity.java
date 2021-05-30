@@ -28,6 +28,8 @@ public class ViewActivity extends AppCompatActivity {
     private TextView m_v_shelterName, m_v_provider, m_v_location;     // 각 editText 의 id를 받아오기 위한 변수들
     private String s_name1, p_name1, l_name1;                         // EditActivity 에서 intent 에 put 된 값들을 get 하기위한 변수들
 
+    int position;
+
     Intent intent;
 
     @Override
@@ -84,6 +86,7 @@ public class ViewActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == 10 && resultCode == RESULT_OK) {                // ViewActivity >> EditActivity >> ViewActivity 로 다시 왔을 때~
+            position = data.getIntExtra("pos", -1);
             String s = data.getStringExtra("s_name");   // 문자열 변수에 EditActivity 에서 put 한 데이터를 get 으로 가져오고
             String p = data.getStringExtra("p_name");
             String l = data.getStringExtra("l_name");
@@ -112,6 +115,7 @@ public class ViewActivity extends AppCompatActivity {
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] byteArray = stream.toByteArray();
         intent.putExtra("icon", byteArray);
+        intent.putExtra("pos", position);
         intent.putExtra("s_name", m_v_shelterName.getText().toString());
         intent.putExtra("p_name", m_v_provider.getText().toString());
         intent.putExtra("l_name", m_v_location.getText().toString());
