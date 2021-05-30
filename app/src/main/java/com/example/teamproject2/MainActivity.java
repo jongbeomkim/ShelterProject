@@ -27,6 +27,7 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    Storage storage=new Storage();
     private int mainCode = 11;
     // activity_main.xml에 있는 버튼들을 묶어서 저장함
     private int[] btnId = new int[]{
@@ -118,11 +119,11 @@ public class MainActivity extends AppCompatActivity {
             String l = data.getStringExtra("l_name");
             byte[] byteArray = data.getByteArrayExtra("icon");
             Bitmap image = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-            Storage.storage.setSelection(R.drawable.shelter, s, p, l);
+            storage.setSelection(R.drawable.shelter, s, p, l);
         }
         else if ((requestCode==0)&&(resultCode==30)) {           // ViewActivity 에서 삭제를 눌러 돌아왔을때~
             int po = data.getIntExtra("position", -1);
-            Storage.storage.delete(po);
+            storage.delete(po);
         }
         else if ((requestCode==0)&&(resultCode==40)){            // ViewActivity 에서 뒤로가기 버튼을 눌러서 왔을 때~
             byte[] byteArray = data.getByteArrayExtra("icon");
@@ -132,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
             String s = data.getStringExtra("s_name");             // 문자열 변수에 EditActivity 에서 put 한 데이터를 get 으로 가져오고
             String p = data.getStringExtra("p_name");
             String l = data.getStringExtra("l_name");
-            Storage.storage.update(po, R.drawable.shelter, s, p, l);
+            storage.update(po, R.drawable.shelter, s, p, l);
         }
     }
 

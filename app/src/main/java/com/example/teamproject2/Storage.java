@@ -15,8 +15,6 @@ import java.util.ArrayList;
 public class Storage extends AppCompatActivity {
 
     static ArrayList<Item> items;
-    static Storage storage = new Storage();
-
     public void setSelection(int p_image, String p_shelterName, String p_writer, String p_location){
         items.add(new Item(p_image, p_shelterName, p_writer, p_location));  // 리스트에 대피소정보 추가
         writeStorage();
