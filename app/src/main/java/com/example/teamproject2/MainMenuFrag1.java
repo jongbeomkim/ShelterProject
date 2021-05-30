@@ -31,8 +31,6 @@ import java.util.ArrayList;
 import static android.app.Activity.RESULT_OK;
 
 public class MainMenuFrag1 extends Fragment {
-
-    static ArrayList<Item> items;
     ListView mList;
     private TextView shelterName;
     private TextView writer;
@@ -49,7 +47,8 @@ public class MainMenuFrag1 extends Fragment {
 
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_main_1, container, false);
-        items = new ArrayList<>();
+
+        Storage.items = new ArrayList<>();
 
         Drawable shelter = getResources().getDrawable(R.drawable.shelter);
         File file = new File(getActivity().getFilesDir(), "test.txt");  // getFilesDir(): 파일의 전체 저장 경로를 가져오는 메소드
@@ -62,7 +61,7 @@ public class MainMenuFrag1 extends Fragment {
                 bufrd = new BufferedReader(fr);
                 while ((s = bufrd.readLine()) != null) {
                     String[] split = new String(s).split(",");
-                    items.add(new Item(Integer.parseInt(split[0]) , split[1], split[2], split[3]));
+                    Storage.items.add(new Item(Integer.parseInt(split[0]) , split[1], split[2], split[3]));
                 }
                 bufrd.close();
                 fr.close();
@@ -71,7 +70,7 @@ public class MainMenuFrag1 extends Fragment {
             }
         }
         mList = (ListView) rootView.findViewById(R.id.frag1_list);
-        myAdapter = new MyAdapter(getContext(), items);
+        myAdapter = new MyAdapter(getContext(), Storage.items);
         mList.setAdapter(myAdapter);
 
         mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -96,7 +95,7 @@ public class MainMenuFrag1 extends Fragment {
                 intent.putExtra("icon", byteArray);
                 intent.putExtra("shelterName", shelterName.getText().toString());     //뷰 액티비티로 갈때 값 넘김
                 intent.putExtra("writer", writer.getText().toString());
-                intent.putExtra("location",items.get(position).location);
+                intent.putExtra("location", Storage.items.get(position).location);
                 //intent.putExtra("code",viewCode);
                 intent.putExtra("position",position);
                 getActivity().startActivityForResult(intent, 0);

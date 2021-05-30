@@ -9,8 +9,13 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
-import static com.example.teamproject2.MainMenuFrag1.items;
+import java.util.ArrayList;
+
 public class Storage extends AppCompatActivity {
+
+    static ArrayList<Item> items;
+    static Storage storage = new Storage();
+
     public void update() {
         File file = new File( getFilesDir(), "test.txt");
         FileWriter fw = null ;     // 파일에 데이터를 쓰기위한 핸들러 fw 선언

@@ -20,8 +20,6 @@ import android.widget.Toast;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 
-import static com.example.teamproject2.MainMenuFrag1.items;
-
 public class ViewActivity extends AppCompatActivity {
 
     private int viewCode = 10;   // ViewActivity 의 viewCode
