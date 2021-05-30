@@ -118,14 +118,11 @@ public class MainActivity extends AppCompatActivity {
             String l = data.getStringExtra("l_name");
             byte[] byteArray = data.getByteArrayExtra("icon");
             Bitmap image = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-            Storage.items.add(new Item(R.drawable.shelter, s, p, l));  //static items 받아서 추가  static 안쓸라면 getitem만들어서 받아와야할듯?
-            Storage.storage.writeStorage();
-            MainMenuFrag1.myAdapter.notifyDataSetChanged();  //static 안쓸라면 getAdapter만들어서 받아와야할듯?
+            Storage.storage.setSelection(R.drawable.shelter, s, p, l);
         }
         else if ((requestCode==0)&&(resultCode==30)) {           // ViewActivity 에서 삭제를 눌러 돌아왔을때~
             int po = data.getIntExtra("position", -1);
             Storage.storage.delete(po);
-            MainMenuFrag1.myAdapter.notifyDataSetChanged();//static 안쓸라면 getAdapter만들어서 받아와야할듯?
         }
         else if ((requestCode==0)&&(resultCode==40)){            // ViewActivity 에서 뒤로가기 버튼을 눌러서 왔을 때~
             byte[] byteArray = data.getByteArrayExtra("icon");
@@ -135,10 +132,7 @@ public class MainActivity extends AppCompatActivity {
             String s = data.getStringExtra("s_name");             // 문자열 변수에 EditActivity 에서 put 한 데이터를 get 으로 가져오고
             String p = data.getStringExtra("p_name");
             String l = data.getStringExtra("l_name");
-            Storage.items.set(po, new Item(R.drawable.shelter,s,p,l));  // position 위치의 리스트 정보를 새로 설정
             Storage.storage.update(po, R.drawable.shelter, s, p, l);
-            MainMenuFrag1.myAdapter.notifyDataSetChanged();//static 안쓸라면 getAdapter만들어서 받아와야할듯?
-
         }
     }
 
