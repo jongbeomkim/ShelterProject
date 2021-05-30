@@ -114,6 +114,9 @@ public class SearchFragment extends Fragment {
     }
 
     // 문자열을 입력받으면 해당 문자가 포함된 원소 모두 출력
+    //★★버그 확인걸과 : 이전에도 존재하던 버그들
+    //검색후 수정후 뒤로가면 Mainflag가 검색 된 부분으로 바껴서 리스트가 초기화(Clear실행 후 검색된거로 바낀후 안돌아오는듯)
+    //검색 후 수정하면 수정된값으로 검색이 안되고 기존값으로 검색됨(한번더 리스트 받아오는것이 필요한듯)
     public void search(String text){
         MainMenuFrag1.items.clear();
 
