@@ -1,6 +1,8 @@
 package com.example.teamproject2;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 public class MyAdapter extends BaseAdapter {
@@ -53,7 +56,8 @@ public class MyAdapter extends BaseAdapter {
         Item item = (Item) items.get(position);
         txt_shelter.setText(item.shelterName);
         txt_writer.setText(item.writer);
-        img_shelter.setImageResource(item.icon);
+       // Bitmap bitmap = BitmapFactory.decodeByteArray( item.icon, 0, item.icon.length ) ;
+        img_shelter.setImageBitmap(item.icon);
         Glide
                 .with(ctx)
                 .load(item.icon)

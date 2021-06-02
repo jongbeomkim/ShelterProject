@@ -2,6 +2,10 @@ package com.example.teamproject2;
 
 import android.app.AppComponentFactory;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,11 +19,10 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 
 public class Storage extends AppCompatActivity {
-
     static ArrayList<Item> items;
 
     // 리스트에 대피소 정보를 추가하는 메서드
-    public void setSelection(int p_image, String p_shelterName, String p_writer, String p_location){
+    public void setSelection(Bitmap p_image, String p_shelterName, String p_writer, String p_location){
         items.add(new Item(p_image, p_shelterName, p_writer, p_location));  // 리스트에 대피소정보 추가
         writeStorage();
         MainMenuFrag1.myAdapter.notifyDataSetChanged();     // 프레그먼트 재실행 메소드
@@ -33,7 +36,7 @@ public class Storage extends AppCompatActivity {
     }
 
     // 리스트의 기존 대피소 정보를 수정하는 메서드
-    public void update(int pos, int p_image, String p_shelterName, String p_writer, String p_location){
+    public void update(int pos, Bitmap p_image, String p_shelterName, String p_writer, String p_location){
         items.set(pos, new Item(p_image, p_shelterName, p_writer, p_location));  // position 위치의 리스트 정보를 새로 설정
         writeStorage();
         MainMenuFrag1.myAdapter.notifyDataSetChanged();     // 프레그먼트 재실행 메소드
@@ -64,13 +67,19 @@ public class Storage extends AppCompatActivity {
         FileReader fr = null;       // 파일 데이터를 읽기 위한 핸들러 fr 선언.
         BufferedReader bufrd = null;
         String s;
+
+
+
         if (file.exists()) {   // file.exists(): 파일이 존재하는지 검사
             try {
+
+                Drawable drawable = getResources().getDrawable(R.drawable.shelter);
                 fr = new FileReader(file);    // fr 을 "file"파일을 읽기 위한 핸들러로 선언.
                 bufrd = new BufferedReader(fr);
                 while ((s = bufrd.readLine()) != null) {
                     String[] split = new String(s).split(",");
-                    items.add(new Item(Integer.parseInt(split[0]), split[1], split[2], split[3]));
+                    byte[] bytes=split[0].getBytes();
+                 //   items.add(new Item(Uri.parse(split[0]), split[1], split[2], split[3]));
                 }
                 bufrd.close();
                 fr.close();
@@ -79,4 +88,5 @@ public class Storage extends AppCompatActivity {
             }
         }
     }
+
 }

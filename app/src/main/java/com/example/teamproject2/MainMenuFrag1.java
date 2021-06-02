@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -38,7 +39,7 @@ public class MainMenuFrag1 extends Fragment {
     static MyAdapter myAdapter;
     private int viewCode = 20;     // Frag1의 viewCode
     private int img_plus;
-    private  String s_plus, p_plus, l_plus;
+    private String s_plus, p_plus, l_plus;
 
     Storage storage = new Storage();
 
@@ -50,45 +51,65 @@ public class MainMenuFrag1 extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_main_1, container, false);
 
         Storage.items = new ArrayList<>();
-
-        Drawable shelter = getResources().getDrawable(R.drawable.shelter);
-
         // 데이터를 읽어옴 
-        storage.readStorage();
 
-        mList = (ListView) rootView.findViewById(R.id.frag1_list);
-        myAdapter = new MyAdapter(getContext(), Storage.items);
-        mList.setAdapter(myAdapter);
+        File file = new File(getActivity().getFilesDir(), "test.txt");  // getFilesDir(): 파일의 전체 저장 경로를 가져오는 메소드
+        FileReader fr = null;       // 파일 데이터를 읽기 위한 핸들러 fr 선언.
+        BufferedReader bufrd = null;
+        String s;
+        if (file.exists()) {   // file.exists(): 파일이 존재하는지 검사
 
-        mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
-                //각 아이템을 분간 할 수 있는 position과 뷰
-                img = view.findViewById(R.id.item_icon);   //리스트뷰에 img
-                shelterName = view.findViewById(R.id.item_shelter);   //리스트뷰에 쉴터 이름
-                writer = view.findViewById(R.id.item_writer);   //리스트뷰에 제공자명
-
-                Toast.makeText(getContext(), "Clicked: "  +" " + shelterName.getText(), Toast.LENGTH_SHORT).show();
-
-                // 그림 가져오는 부분(추가 설명 필요)
-                BitmapDrawable drawable = (BitmapDrawable) img.getDrawable(); //이미지 동적
-                Bitmap bitmap = drawable.getBitmap();
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-
-                byte[] byteArray = stream.toByteArray();
-                Intent intent;
-                intent = new Intent(getContext(), ViewActivity.class);
-                intent.putExtra("icon", byteArray);
-                intent.putExtra("shelterName", shelterName.getText().toString());     //뷰 액티비티로 갈때 값 넘김
-                intent.putExtra("writer", writer.getText().toString());
-                intent.putExtra("location", Storage.items.get(position).location);
-                //intent.putExtra("code",viewCode);
-                intent.putExtra("position",position);
-                getActivity().startActivityForResult(intent, 0);
+            try {
+                fr = new FileReader(file);    // fr 을 "file"파일을 읽기 위한 핸들러로 선언.
+                bufrd = new BufferedReader(fr);
+                while ((s = bufrd.readLine()) != null) {
+                    String[] split = new String(s).split(",");
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    String imgpath = getActivity().getCacheDir() + "/" + split[1];   // 내부 저장소에 저장되어 있는 split[1]은 이미지파일명 (쉴터이름)
+                    Bitmap bm = BitmapFactory.decodeFile(imgpath);
+                    Storage.items.add(new Item(bm, split[1], split[2], split[3]));
+                }
+                bufrd.close();
+                fr.close();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        });
-        return rootView;
+        }
+
+            mList = (ListView) rootView.findViewById(R.id.frag1_list);
+            myAdapter = new MyAdapter(getContext(), Storage.items);
+            mList.setAdapter(myAdapter);
+
+            mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long l) {
+                    //각 아이템을 분간 할 수 있는 position과 뷰
+                    img = view.findViewById(R.id.item_icon);   //리스트뷰에 img
+                    shelterName = view.findViewById(R.id.item_shelter);   //리스트뷰에 쉴터 이름
+                    writer = view.findViewById(R.id.item_writer);   //리스트뷰에 제공자명
+
+                    Toast.makeText(getContext(), "Clicked: " + " " + shelterName.getText(), Toast.LENGTH_SHORT).show();
+
+                    // 그림 가져오는 부분(추가 설명 필요)
+                    BitmapDrawable drawable = (BitmapDrawable) img.getDrawable(); //이미지 동적
+                    Bitmap bitmap = drawable.getBitmap();
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+
+                    byte[] byteArray = stream.toByteArray();
+                    Intent intent;
+                    intent = new Intent(getContext(), ViewActivity.class);
+                    intent.putExtra("icon", byteArray);
+                    intent.putExtra("shelterName", shelterName.getText().toString());     //뷰 액티비티로 갈때 값 넘김
+                    intent.putExtra("writer", writer.getText().toString());
+                    intent.putExtra("location", Storage.items.get(position).location);
+                    //intent.putExtra("code",viewCode);
+                    intent.putExtra("position", position);
+                    getActivity().startActivityForResult(intent, 0);
+                }
+            });
+            return rootView;
+        }
     }
 
     // 리스트에 대피소 정보를 새로 추가하는 함수.
@@ -138,5 +159,5 @@ public class MainMenuFrag1 extends Fragment {
             e.printStackTrace() ;
         }
     }*/
-}
+
 

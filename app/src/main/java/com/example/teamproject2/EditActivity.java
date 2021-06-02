@@ -1,17 +1,22 @@
 package com.example.teamproject2;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 
 
@@ -27,7 +32,10 @@ public class EditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
-
+        imageView = findViewById(R.id.e_image);
+        s_text = findViewById(R.id.e_shelterName);
+        p_text = findViewById(R.id.e_provider);
+        l_text = findViewById(R.id.e_location);
         intent = getIntent();
         code = intent.getIntExtra("viewCode",-1);   // ViewActivity 에서 불려졌다면 code 가 10으로 바뀐다.
 
@@ -58,18 +66,19 @@ public class EditActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {   //갤러리에서 사진 받아오기
-        imageView = findViewById(R.id.e_image);
+
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
+                Uri fileUri = data.getData();
+                ContentResolver resolver = getContentResolver();
                 try {
-                    InputStream in = getContentResolver().openInputStream(data.getData());
+                    InputStream instream = resolver.openInputStream(fileUri);
+                    Bitmap imgBitmap = BitmapFactory.decodeStream(instream);
+                    imageView.setImageBitmap(imgBitmap);    // 선택한 이미지 이미지뷰에 셋
+                    instream.close();   // 스트림 닫아주기
 
-                    Bitmap img = BitmapFactory.decodeStream(in);
-                    in.close();
-
-                    imageView.setImageBitmap(img);
                 } catch (Exception e) {
-
+                   e.printStackTrace();
                 }
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "사진 선택 취소", Toast.LENGTH_LONG).show();
@@ -78,28 +87,31 @@ public class EditActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-
     public void checkActivity(int code){         // 추가 화면(from MainActivity)인지 수정 화면(from ViewActivity)인지 구분하는 함수
         switch (code){
             case 10:    // ViewActivity 에서 편집 버튼을 눌러서 왔다면~
                 intent = getIntent();
-
                 imageView = findViewById(R.id.e_image);
-                s_text = findViewById(R.id.e_shelterName);
-                p_text = findViewById(R.id.e_provider);
-                l_text = findViewById(R.id.e_location);
+
                 byte[] byteArray = intent.getByteArrayExtra("pic");
                 Bitmap image = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
                 s_name2 = intent.getStringExtra("s_name");
                 p_name2 = intent.getStringExtra("p_name");
                 l_name2 = intent.getStringExtra("l_name");
-
-                imageView.setImageBitmap(image);
+                try {
+                    String imgpath = getCacheDir() + "/" + s_name2;   // 내부 저장소에 저장되어 있는 이미지 경로
+                    Bitmap bm = BitmapFactory.decodeFile(imgpath);
+                    imageView.setImageBitmap(bm);   // 내부 저장소에 저장된 이미지를 이미지뷰에 셋
+                    Toast.makeText(this, getCacheDir().toString(), Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Toast.makeText(getApplicationContext(), "파일 로드 실패", Toast.LENGTH_SHORT).show();
+                }
+        }
                 s_text.setText(s_name2);
                 p_text.setText(p_name2);
                 l_text.setText(l_name2);
         }
-    }
+
 
 
     public void toDecide(int code) {       // 정말 (수정 or 추가)할 것인지 확인하는 함수
@@ -122,6 +134,7 @@ public class EditActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();   //이미지 동적
                     Bitmap bitmap = drawable.getBitmap();
+                    saveBitmapToJpeg(bitmap);    // 내부 저장소에 저장
                     //int a=Integer.parseInt(String.valueOf(drawable));
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -142,5 +155,18 @@ public class EditActivity extends AppCompatActivity {
         }
         builder.create().show();   // 설정한 메시지 박스 생성
 
+    }
+
+    public void saveBitmapToJpeg(Bitmap bitmap) {   // 선택한 이미지 내부 저장소에 저장
+        File tempFile = new File(getCacheDir(), s_text.getText().toString());    // 파일 경로와 이름 넣기
+        try {
+            tempFile.createNewFile();   // 자동으로 빈 파일을 생성하기
+            FileOutputStream out = new FileOutputStream(tempFile);  // 파일을 쓸 수 있는 스트림을 준비하기
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);   // compress 함수를 사용해 스트림에 비트맵을 저장하기
+            out.close();    // 스트림 닫아주기
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
