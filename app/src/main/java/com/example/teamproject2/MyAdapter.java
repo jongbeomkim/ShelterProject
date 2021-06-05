@@ -58,12 +58,7 @@ public class MyAdapter extends BaseAdapter {
         txt_writer.setText(item.writer);
        // Bitmap bitmap = BitmapFactory.decodeByteArray( item.icon, 0, item.icon.length ) ;
         img_shelter.setImageBitmap(item.icon);
-        Glide
-                .with(ctx)
-                .load(item.icon)
-                .centerCrop()
-                .apply(new RequestOptions().override(500, 500))
-                .into(img_shelter);
+
         return view;
     }
 }
