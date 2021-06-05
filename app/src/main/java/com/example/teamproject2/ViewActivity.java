@@ -48,7 +48,7 @@ public class ViewActivity extends AppCompatActivity {
         s_name1 = intent.getStringExtra("shelterName");
         p_name1 = intent.getStringExtra("writer");
         l_name1 = intent.getStringExtra("location");
-
+        position = intent.getIntExtra("position",-1);
         m_v_image.setImageBitmap(image);                              // a 변수에(id에 해당하는 곳에) b 변수에 저장된 데이터를 set 으로 설정한다.
         m_v_shelterName.setText(s_name1);
         m_v_provider.setText(p_name1);
@@ -70,6 +70,7 @@ public class ViewActivity extends AppCompatActivity {
                 //  ↑ 구글링으로 찾은 이미지를 put 하는 방법인데 자세히는 모르겠음.
                 //  | 아마 bit 로 이루어진 이미지의 bit 를 배열로 저장하고 넘기는 방식인듯 함.
                 intent.putExtra("pic", bs.toByteArray());
+                intent.putExtra("position", position);
                 intent.putExtra("s_name", m_v_shelterName.getText().toString());
                 intent.putExtra("p_name", m_v_provider.getText().toString());
                 intent.putExtra("l_name", m_v_location.getText().toString());
@@ -100,7 +101,7 @@ public class ViewActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    @Override
+    /*@Override
     // ★☆나중에 edit 함수를 다른 곳에서 쓰지 않는다면 edit 함수를 이곳에 바로 적용가능하지 않을까?☆★
     public void onBackPressed() {
         //super.onBackPressed();
@@ -120,7 +121,7 @@ public class ViewActivity extends AppCompatActivity {
         intent.putExtra("l_name", m_v_location.getText().toString());
         setResult(40, intent);
         finish();
-    }
+    }*/
 
     public void toDecide2(){    // 정말 삭제할 것인지 확인하는 함수
         AlertDialog.Builder builder = new AlertDialog.Builder(ViewActivity.this);
@@ -129,7 +130,6 @@ public class ViewActivity extends AppCompatActivity {
         builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {   // 확인 버튼을 눌렀을 때~
             public void onClick(DialogInterface dialog, int which) {
                 intent = getIntent();
-                //intent.getIntExtra("position",-1);
                 setResult(30, intent);   // MainActivity 로 resultCode 30을 들고 돌아감.
                 Toast.makeText(getBaseContext(), "삭제되었습니다.", Toast.LENGTH_LONG).show();
                 finish();

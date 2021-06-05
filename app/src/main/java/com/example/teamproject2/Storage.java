@@ -3,6 +3,7 @@ package com.example.teamproject2;
 import android.app.AppComponentFactory;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -61,25 +63,22 @@ public class Storage extends AppCompatActivity {
     }
 
     // test.txt에서 데이터를 읽어올 때 사용하는 메서드_jb
-    public void readStorage()
+   /* public void readStorage()
     {
         File file = new File("data/user/0/com.example.teamproject2/files", "test.txt");  // getFilesDir(): 파일의 전체 저장 경로를 가져오는 메소드
         FileReader fr = null;       // 파일 데이터를 읽기 위한 핸들러 fr 선언.
         BufferedReader bufrd = null;
         String s;
-
-
-
         if (file.exists()) {   // file.exists(): 파일이 존재하는지 검사
             try {
-
-                Drawable drawable = getResources().getDrawable(R.drawable.shelter);
                 fr = new FileReader(file);    // fr 을 "file"파일을 읽기 위한 핸들러로 선언.
                 bufrd = new BufferedReader(fr);
                 while ((s = bufrd.readLine()) != null) {
                     String[] split = new String(s).split(",");
-                    byte[] bytes=split[0].getBytes();
-                 //   items.add(new Item(Uri.parse(split[0]), split[1], split[2], split[3]));
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    String imgpath = getAct.getCacheDir() + "/" + split[0];   // 내부 저장소에 저장되어 있는 split[1]은 이미지파일명 (쉴터이름)
+                    Bitmap bm = BitmapFactory.decodeFile(imgpath);
+                    Storage.items.add(new Item(bm, split[1], split[2], split[3]));
                 }
                 bufrd.close();
                 fr.close();
@@ -87,6 +86,6 @@ public class Storage extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-    }
+    }*/
 
 }
