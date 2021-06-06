@@ -87,7 +87,6 @@ public class ViewActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == 10 && resultCode == RESULT_OK) {                // ViewActivity >> EditActivity >> ViewActivity 로 다시 왔을 때~
-            position = data.getIntExtra("pos", -1);
             String s = data.getStringExtra("s_name");   // 문자열 변수에 EditActivity 에서 put 한 데이터를 get 으로 가져오고
             String p = data.getStringExtra("p_name");
             String l = data.getStringExtra("l_name");
