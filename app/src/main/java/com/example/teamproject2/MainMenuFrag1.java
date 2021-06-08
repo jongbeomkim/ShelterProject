@@ -67,7 +67,7 @@ public class MainMenuFrag1 extends Fragment {
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     String imgpath = getActivity().getCacheDir() + "/" + split[1];   // 내부 저장소에 저장되어 있는 split[1]은 이미지파일명 (쉴터이름)
                     Bitmap bm = BitmapFactory.decodeFile(imgpath);
-                    Storage.items.add(new Item(bm, split[1], split[2], split[3]));
+                    Storage.items.add(new Item(bm, split[1], split[2], split[3],split[4]));
                 }
                 bufrd.close();
                 fr.close();
@@ -103,6 +103,7 @@ public class MainMenuFrag1 extends Fragment {
                     intent.putExtra("shelterName", shelterName.getText().toString());     //뷰 액티비티로 갈때 값 넘김
                     intent.putExtra("writer", writer.getText().toString());
                     intent.putExtra("location", Storage.items.get(position).location);
+                    intent.putExtra("memo", Storage.items.get(position).memo);
                     //intent.putExtra("code",viewCode);
                     intent.putExtra("position", position);
                     getActivity().startActivityForResult(intent, 0);

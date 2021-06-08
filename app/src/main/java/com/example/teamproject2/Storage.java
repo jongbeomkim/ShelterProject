@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,8 +25,8 @@ public class Storage extends AppCompatActivity {
     static ArrayList<Item> items;
 
     // 리스트에 대피소 정보를 추가하는 메서드
-    public void setSelection(Bitmap p_image, String p_shelterName, String p_writer, String p_location){
-        items.add(new Item(p_image, p_shelterName, p_writer, p_location));  // 리스트에 대피소정보 추가
+    public void setSelection(Bitmap p_image, String p_shelterName, String p_writer, String p_location,String p_memo){
+        items.add(new Item(p_image, p_shelterName, p_writer, p_location,p_memo));  // 리스트에 대피소정보 추가
         writeStorage();
         MainMenuFrag1.myAdapter.notifyDataSetChanged();     // 프레그먼트 재실행 메소드
     }
@@ -38,8 +39,8 @@ public class Storage extends AppCompatActivity {
     }
 
     // 리스트의 기존 대피소 정보를 수정하는 메서드
-    public void update(int pos, Bitmap p_image, String p_shelterName, String p_writer, String p_location){
-        items.set(pos, new Item(p_image, p_shelterName, p_writer, p_location));  // position 위치의 리스트 정보를 새로 설정
+    public void update(int pos, Bitmap p_image, String p_shelterName, String p_writer, String p_location,String p_memo){
+        items.set(pos, new Item(p_image, p_shelterName, p_writer, p_location,p_memo));  // position 위치의 리스트 정보를 새로 설정
         writeStorage();
         MainMenuFrag1.myAdapter.notifyDataSetChanged();     // 프레그먼트 재실행 메소드
     }
@@ -53,12 +54,22 @@ public class Storage extends AppCompatActivity {
             fw = new FileWriter(file) ;
             bufwr = new BufferedWriter(fw) ;
             for (Item item: items) {    // 리스트 데이터들 처음부터 끝까지~
-                bufwr.write(item.icon + "," + item.shelterName + "," + item.writer + "," + item.location) ;  // 데이터 사이마다 구분자 "," 를 추가하며 test.txt 에 입력
+                bufwr.write(item.icon + "," + item.shelterName + "," + item.writer + "," + item.location+","+item.memo) ;  // 데이터 사이마다 구분자 "," 를 추가하며 test.txt 에 입력
                 bufwr.newLine();       // 각 대피소 정보마다 줄바꿈을 하여 데이터를 저장.
             }
             bufwr.flush();       // ★☆.flush()가 뭐지???☆★
         } catch (Exception e) {
             e.printStackTrace() ;
+        }
+    }
+    public void changeBitmap(String s, ImageView mimageView){
+        try {
+            String imgpath = getCacheDir() + "/" + s;   // 내부 저장소에 저장되어 있는 이미지 경로
+            Bitmap bm = BitmapFactory.decodeFile(imgpath);
+            mimageView.setImageBitmap(bm);   // 내부 저장소에 저장된 이미지를 이미지뷰에 셋
+            Toast.makeText(this, getCacheDir().toString(), Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "파일 로드 실패", Toast.LENGTH_SHORT).show();
         }
     }
 

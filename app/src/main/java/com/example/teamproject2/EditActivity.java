@@ -24,8 +24,8 @@ public class EditActivity extends AppCompatActivity {
 
     private ImageView imageView;
     byte[] byteArray;
-    private String s_name2, p_name2, l_name2,s;
-    private EditText s_text , p_text, l_text;
+    private String s_name2, p_name2, l_name2,m_name2;
+    private EditText s_text , p_text, l_text,m_text;
     private Intent intent;
     Storage storage=new Storage();
     int code = 0;
@@ -39,6 +39,7 @@ public class EditActivity extends AppCompatActivity {
         s_text = findViewById(R.id.e_shelterName);
         p_text = findViewById(R.id.e_provider);
         l_text = findViewById(R.id.e_location);
+        m_text = findViewById(R.id.e_memo);
         intent = getIntent();
         code = intent.getIntExtra("viewCode",-1);
         position=intent.getIntExtra("position",-1);
@@ -93,12 +94,14 @@ public class EditActivity extends AppCompatActivity {
                 s_name2 = intent.getStringExtra("s_name");
                 p_name2 = intent.getStringExtra("p_name");
                 l_name2 = intent.getStringExtra("l_name");
+                m_name2 = intent.getStringExtra("m_name");
                 imageView.setImageBitmap(image);   // 내부 저장소에 저장된 이미지를 이미지뷰에 셋
 
         }
                 s_text.setText(s_name2);
                 p_text.setText(p_name2);
                 l_text.setText(l_name2);
+                m_text.setText(m_name2);
         }
 
 
@@ -133,15 +136,16 @@ public class EditActivity extends AppCompatActivity {
                     intent.putExtra("s_name", s_text.getText().toString());
                     intent.putExtra("p_name", p_text.getText().toString());
                     intent.putExtra("l_name", l_text.getText().toString());
+                    intent.putExtra("m_name", m_text.getText().toString());
                     setResult(RESULT_OK, intent);
 
                     if (code != 10) {
                         Toast.makeText(getBaseContext(), "대피소가 추가되었습니다.", Toast.LENGTH_LONG).show();
-                        storage.setSelection(bitmap, s_text.getText().toString(), p_text.getText().toString(), l_text.getText().toString());
+                        storage.setSelection(bitmap, s_text.getText().toString(), p_text.getText().toString(), l_text.getText().toString(),m_text.getText().toString());
                     }
                     if (code == 10) {
                        Toast.makeText(getBaseContext(), "대피소가 수정되었습니다.", Toast.LENGTH_LONG).show();
-                        storage.update(position,bitmap,  s_text.getText().toString(), p_text.getText().toString(), l_text.getText().toString());
+                        storage.update(position,bitmap,  s_text.getText().toString(), p_text.getText().toString(), l_text.getText().toString(),m_text.getText().toString());
                     }
                     finish();
                 }
