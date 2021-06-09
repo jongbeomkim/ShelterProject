@@ -43,15 +43,17 @@ public class ViewActivity extends AppCompatActivity {
         m_v_provider = (TextView) findViewById(R.id.v_provider);
         m_v_location = (TextView) findViewById(R.id.v_location);
         m_v_memo=findViewById(R.id.v_memo);
-        byte[] byteArray = intent.getByteArrayExtra("icon");    // b 변수에 intent 내부에 들어있는 데이터들을 get 을 사용하여 저장한 뒤
-        Bitmap image = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+        //byte[] byteArray = intent.getByteArrayExtra("icon");    // b 변수에 intent 내부에 들어있는 데이터들을 get 을 사용하여 저장한 뒤
+        //Bitmap image = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
         s_name1 = intent.getStringExtra("shelterName");
         p_name1 = intent.getStringExtra("writer");
         l_name1 = intent.getStringExtra("location");
         m_name1 = intent.getStringExtra("memo");
         position = intent.getIntExtra("position",-1);
-
-        m_v_image.setImageBitmap(image);                              // a 변수에(id에 해당하는 곳에) b 변수에 저장된 데이터를 set 으로 설정한다.
+        String imgpath = getCacheDir() + "/" + s_name1;   // 내부 저장소에 저장되어 있는 이미지 경로
+        Bitmap bm = BitmapFactory.decodeFile(imgpath);
+        m_v_image.setImageBitmap(bm);   // 내부 저장소에 저장된 이미지를 이미지뷰에 셋
+                                       // a 변수에(id에 해당하는 곳에) b 변수에 저장된 데이터를 set 으로 설정한다.
         m_v_shelterName.setText(s_name1);
         m_v_provider.setText(p_name1);
         m_v_location.setText(l_name1);
@@ -95,9 +97,13 @@ public class ViewActivity extends AppCompatActivity {
             String p = data.getStringExtra("p_name");
             String l = data.getStringExtra("l_name");
             String m = data.getStringExtra("m_name");
-            byte[] byteArray = data.getByteArrayExtra("icon");    // b 변수에 intent 내부에 들어있는 데이터들을 get 을 사용하여 저장한 뒤
-            Bitmap image = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-            m_v_image.setImageBitmap(image);
+            //byte[] byteArray = data.getByteArrayExtra("icon");    // b 변수에 intent 내부에 들어있는 데이터들을 get 을 사용하여 저장한 뒤
+            String imgpath = getCacheDir() + "/" + s;   // 내부 저장소에 저장되어 있는 이미지 경로
+            Bitmap bm = BitmapFactory.decodeFile(imgpath);
+            m_v_image.setImageBitmap(bm);   // 내부 저장소에 저장된 이미지를 이미지뷰에 셋
+            //Toast.makeText(this, getCacheDir().toString(), Toast.LENGTH_SHORT).show();
+            //Bitmap image = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+           // m_v_image.setImageBitmap(image);
             m_v_shelterName.setText(s);
             m_v_provider.setText(p);
             m_v_location.setText(l);

@@ -132,7 +132,7 @@ public class EditActivity extends AppCompatActivity {
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                     byteArray = stream.toByteArray();
                     intent = new Intent();
-                    intent.putExtra("icon", byteArray);
+                   // intent.putExtra("icon", byteArray);
                     intent.putExtra("s_name", s_text.getText().toString());
                     intent.putExtra("p_name", p_text.getText().toString());
                     intent.putExtra("l_name", l_text.getText().toString());

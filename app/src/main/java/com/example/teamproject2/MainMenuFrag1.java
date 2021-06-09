@@ -96,15 +96,16 @@ public class MainMenuFrag1 extends Fragment {
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
 
-                    byte[] byteArray = stream.toByteArray();
+                    //byte[] byteArray = stream.toByteArray();
                     Intent intent;
                     intent = new Intent(getContext(), ViewActivity.class);
-                    intent.putExtra("icon", byteArray);
+                    //intent.putExtra("icon", byteArray);
                     intent.putExtra("shelterName", shelterName.getText().toString());     //뷰 액티비티로 갈때 값 넘김
                     intent.putExtra("writer", writer.getText().toString());
                     intent.putExtra("location", Storage.items.get(position).location);
                     intent.putExtra("memo", Storage.items.get(position).memo);
                     //intent.putExtra("code",viewCode);
+
                     intent.putExtra("position", position);
                     getActivity().startActivityForResult(intent, 0);
                 }
