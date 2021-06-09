@@ -112,10 +112,11 @@ public class EditActivity extends AppCompatActivity {
         s_text = findViewById(R.id.e_shelterName);
         p_text = findViewById(R.id.e_provider);
         l_text = findViewById(R.id.e_location);
+        m_text = findViewById(R.id.e_memo);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(EditActivity.this);
         builder.setTitle("Notice");
-        if (s_text.getText().toString().isEmpty() ||  p_text.getText().toString().isEmpty() || l_text.getText().toString().isEmpty()) {///하나라도 빈칸이면
+        if (s_text.getText().toString().isEmpty() ||  p_text.getText().toString().isEmpty() || l_text.getText().toString().isEmpty() || m_text.getText().toString().isEmpty()) {///하나라도 빈칸이면
             builder.setMessage("대피소 정보를 모두 채워주세요.");
             builder.setPositiveButton("확인",null);
         }
