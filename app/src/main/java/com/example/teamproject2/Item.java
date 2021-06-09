@@ -1,8 +1,6 @@
 package com.example.teamproject2;
 
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 
 public class Item {
 

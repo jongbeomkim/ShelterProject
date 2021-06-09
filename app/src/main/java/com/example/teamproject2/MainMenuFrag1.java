@@ -1,15 +1,11 @@
 package com.example.teamproject2;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -22,14 +18,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;  // java.io: Java 에서 File 을 다루기 위해 사용되는 클래스들이 모인 패키지
-import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.util.ArrayList;
 
-import static android.app.Activity.RESULT_OK;
 
 public class MainMenuFrag1 extends Fragment {
     ListView mList;
@@ -37,11 +30,6 @@ public class MainMenuFrag1 extends Fragment {
     private TextView writer;
     private ImageView img;
     static MyAdapter myAdapter;
-    private int viewCode = 20;     // Frag1의 viewCode
-    private int img_plus;
-    private String s_plus, p_plus, l_plus;
-
-    Storage storage = new Storage();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
