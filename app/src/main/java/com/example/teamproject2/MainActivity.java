@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
             Bitmap image = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
             Drawable drawable = new BitmapDrawable(getResources(), image);
             Uri uri=null;
-            storage.setSelection(image, s, p, l);
+            storage.insert(image, s, p, l);
         }*/
          if ((requestCode==0)&&(resultCode==30)) {           // ViewActivity 에서 삭제를 눌러 돌아왔을때~
             int po = data.getIntExtra("position", -1);

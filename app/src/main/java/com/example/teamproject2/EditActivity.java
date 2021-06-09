@@ -142,7 +142,7 @@ public class EditActivity extends AppCompatActivity {
 
                     if (code != 10) {
                         Toast.makeText(getBaseContext(), "대피소가 추가되었습니다.", Toast.LENGTH_LONG).show();
-                        storage.setSelection(bitmap, s_text.getText().toString(), p_text.getText().toString(), l_text.getText().toString(),m_text.getText().toString());
+                        storage.insert(bitmap, s_text.getText().toString(), p_text.getText().toString(), l_text.getText().toString(),m_text.getText().toString());
                     }
                     if (code == 10) {
                        Toast.makeText(getBaseContext(), "대피소가 수정되었습니다.", Toast.LENGTH_LONG).show();

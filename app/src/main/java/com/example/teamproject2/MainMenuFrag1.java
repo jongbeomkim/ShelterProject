@@ -116,7 +116,7 @@ public class MainMenuFrag1 extends Fragment {
 
     // 리스트에 대피소 정보를 새로 추가하는 함수.
     //static으로 list 직접 추가 수정 해서 팔요 없어졌으나 혹시 몰라서 남김
-  /*  public void setSelection(int img, String s1, String s2, String s3){
+  /*  public void insert(int img, String s1, String s2, String s3){
         img_plus = img;
         s_plus = s1;
         p_plus = s2;

@@ -25,7 +25,7 @@ public class Storage extends AppCompatActivity {
     static ArrayList<Item> items;
 
     // 리스트에 대피소 정보를 추가하는 메서드
-    public void setSelection(Bitmap p_image, String p_shelterName, String p_writer, String p_location,String p_memo){
+    public void insert(Bitmap p_image, String p_shelterName, String p_writer, String p_location,String p_memo){
         items.add(new Item(p_image, p_shelterName, p_writer, p_location,p_memo));  // 리스트에 대피소정보 추가
         writeStorage();
         MainMenuFrag1.myAdapter.notifyDataSetChanged();     // 프레그먼트 재실행 메소드
