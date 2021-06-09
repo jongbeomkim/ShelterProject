@@ -33,7 +33,7 @@ public class MainMenuFrag2 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_main_1, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_main_2, container, false);
 
         items = new ArrayList<>();
         BitmapDrawable drawable = (BitmapDrawable) getResources().getDrawable(R.drawable.shelter);
@@ -42,7 +42,7 @@ public class MainMenuFrag2 extends Fragment {
         items.add(new Item(shelter, "대피소2","김종범","안산", "메모"));
         items.add(new Item(shelter, "대피소3","김동현","평택", "메모"));
         items.add(new Item(shelter, "대피소4","조윤진","수원", "메모"));
-        mList = (ListView) rootView.findViewById(R.id.frag1_list);
+        mList = (ListView) rootView.findViewById(R.id.frag2_list);
         myAdapter = new MyAdapter(getContext(), items);
         mList.setAdapter(myAdapter);
         mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
