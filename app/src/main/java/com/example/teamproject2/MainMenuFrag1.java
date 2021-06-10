@@ -46,14 +46,13 @@ public class MainMenuFrag1 extends Fragment {
         BufferedReader bufrd = null;
         String s;
         if (file.exists()) {   // file.exists(): 파일이 존재하는지 검사
-
             try {
                 fr = new FileReader(file);    // fr 을 "file"파일을 읽기 위한 핸들러로 선언.
                 bufrd = new BufferedReader(fr);
                 while ( (s= bufrd.readLine()) != null) {
                     String[] split = new String(s).split(",");
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    String imgpath = getActivity().getCacheDir() + "/" +split[1]+split[2]+split[3];   // 내부 저장소에 저장되어 있는 split[1]은 이미지파일명 (쉴터이름)
+                    String imgpath = getActivity().getCacheDir() + "/" +split[1]+split[2]+split[3];
                     Bitmap bm = BitmapFactory.decodeFile(imgpath);
                     Storage.items.add(new Item(bm, split[1], split[2], split[3],split[4]));
                 }
@@ -64,7 +63,7 @@ public class MainMenuFrag1 extends Fragment {
             }
         }
 
-            mList = (ListView) rootView.findViewById(R.id.frag1_list);
+            mList = (ListView) rootView.findViewById(R.id.frag1_list);  // 리스트 생성 부분
             myAdapter = new MyAdapter(getContext(), Storage.items);
             mList.setAdapter(myAdapter);
 
@@ -80,9 +79,10 @@ public class MainMenuFrag1 extends Fragment {
 
                     Intent intent;
                     intent = new Intent(getContext(), ViewActivity.class);
-                    intent.putExtra("shelterName", shelterName.getText().toString());     //뷰 액티비티로 갈때 값 넘김
+                    intent.putExtra("shelterName", shelterName.getText().toString());   //뷰 액티비티로 갈때 값 넘김
                     intent.putExtra("writer", writer.getText().toString());
-                    intent.putExtra("location", Storage.items.get(position).location);
+
+                    intent.putExtra("location", Storage.items.get(position).location);  // 저장소에서 직접 가져옴
                     intent.putExtra("memo", Storage.items.get(position).memo);
 
                     intent.putExtra("position", position);

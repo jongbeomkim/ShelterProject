@@ -114,10 +114,12 @@ public class MainActivity extends AppCompatActivity {
             Uri uri=null;
             storage.insert(image, s, p, l);
         }*/
-         if ((requestCode==0)&&(resultCode==30)) {           // ViewActivity 에서 삭제를 눌러 돌아왔을때~
+
+         if ((requestCode==0)&&(resultCode==30)) {   // ViewActivity 에서 삭제를 눌러 돌아왔을때~
             int po = data.getIntExtra("position", -1);
             storage.delete(po);
         }
+
        /* else if ((requestCode==0)&&(resultCode==40)){            // ViewActivity 에서 뒤로가기 버튼을 눌러서 왔을 때~
             byte[] byteArray = data.getByteArrayExtra("icon");
             Bitmap image = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
@@ -132,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed(){      // 메인에서 뒤로가기를 눌렀을 때 앱을 종료할 것인지 확인하는 함수
+    public void onBackPressed(){
         if(searchFragment != null){             // 검색 프래그먼트가 떠 있을때 뒤로가기를 하면 실행
             getSupportFragmentManager().beginTransaction().remove(searchFragment).commit();     // searchFragment를 삭제
             searchFragment = null;
@@ -143,7 +145,8 @@ public class MainActivity extends AppCompatActivity {
             // 메인액티비티로 돌아가면 민방공대피소(1번째) 보여줌
             getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment[0]).commit();
             isBtnSelected(btn[0]);
-        }else {         // 검색 프래그먼트가 없는 메인화면 상태일때 실행
+        }
+        else {  // 메인에서 뒤로가기를 눌렀을 때 앱을 종료할 것인지 확인하는 메서드
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setTitle("Notice");
             builder.setMessage("앱을 종료하시겠습니까?");

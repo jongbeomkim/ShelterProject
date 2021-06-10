@@ -37,15 +37,18 @@ public class EditActivity extends AppCompatActivity {
         p_text = findViewById(R.id.e_provider);
         l_text = findViewById(R.id.e_location);
         m_text = findViewById(R.id.e_memo);
+
         intent = getIntent();
         code = intent.getIntExtra("viewCode",-1);
         position=intent.getIntExtra("position",-1);
+
         checkActivity(code);
     }
 
 
 
     public void mOnClick(View v){
+        int code = intent.getIntExtra("viewCode", -1);
         switch (v.getId()){
             case R.id.e_image:
                 intent = new Intent();
@@ -84,22 +87,20 @@ public class EditActivity extends AppCompatActivity {
                 intent = getIntent();
                 imageView = findViewById(R.id.e_image);
 
-                //byte[] byteArray = intent.getByteArrayExtra("pic");
-                //Bitmap image = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-
                 s_name2 = intent.getStringExtra("s_name");
                 p_name2 = intent.getStringExtra("p_name");
                 l_name2 = intent.getStringExtra("l_name");
                 m_name2 = intent.getStringExtra("m_name");
                 String imgpath = getCacheDir() + "/" + s_name2+p_name2+l_name2;   // 내부 저장소에 저장되어 있는 이미지 경로
                 Bitmap bm = BitmapFactory.decodeFile(imgpath);
-                imageView.setImageBitmap(bm);   // 내부 저장소에 저장된 이미지를 이미지뷰에 셋
 
-        }
+                imageView.setImageBitmap(bm);   // 내부 저장소에 저장된 이미지를 이미지뷰에 셋
                 s_text.setText(s_name2);
                 p_text.setText(p_name2);
                 l_text.setText(l_name2);
                 m_text.setText(m_name2);
+                break;
+            }
         }
 
 

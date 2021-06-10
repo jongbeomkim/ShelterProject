@@ -17,23 +17,23 @@ public class Storage extends AppCompatActivity {
 
     // 리스트에 대피소 정보를 추가하는 메서드
     public void insert(Bitmap p_image, String p_shelterName, String p_writer, String p_location,String p_memo){
-        items.add(new Item(p_image, p_shelterName, p_writer, p_location,p_memo));  // 리스트에 대피소정보 추가
+        items.add(new Item(p_image, p_shelterName, p_writer, p_location,p_memo));    // 리스트에 대피소 정보 추가
         writeStorage();
-        MainMenuFrag1.myAdapter.notifyDataSetChanged();     // 프레그먼트 재실행 메소드
+        MainMenuFrag1.myAdapter.notifyDataSetChanged();     // 프레그먼트 재실행
     }
 
     // 리스트의 기존 대피소 정보를 삭제하는 메서드_jb
     public void delete(int pos){
         items.remove(pos);
         writeStorage();
-        MainMenuFrag1.myAdapter.notifyDataSetChanged();     // 프레그먼트 재실행 메소드
+        MainMenuFrag1.myAdapter.notifyDataSetChanged();     // 프레그먼트 재실행
     }
 
     // 리스트의 기존 대피소 정보를 수정하는 메서드
     public void update(int pos, Bitmap p_image, String p_shelterName, String p_writer, String p_location,String p_memo){
         items.set(pos, new Item(p_image, p_shelterName, p_writer, p_location,p_memo));  // position 위치의 리스트 정보를 새로 설정
         writeStorage();
-        MainMenuFrag1.myAdapter.notifyDataSetChanged();     // 프레그먼트 재실행 메소드
+        MainMenuFrag1.myAdapter.notifyDataSetChanged();     // 프레그먼트 재실행
     }
 
     // test.txt에 데이터를 입력할 때 사용하는 메서드
@@ -53,7 +53,12 @@ public class Storage extends AppCompatActivity {
             e.printStackTrace() ;
         }
     }
-    public void changeBitmap(String s, ImageView mimageView){
+
+
+
+
+
+    /* public void changeBitmap(String s, ImageView mimageView){
         try {
             String imgpath = getCacheDir() + "/" + s;   // 내부 저장소에 저장되어 있는 이미지 경로
             Bitmap bm = BitmapFactory.decodeFile(imgpath);
@@ -65,7 +70,7 @@ public class Storage extends AppCompatActivity {
     }
 
     // test.txt에서 데이터를 읽어올 때 사용하는 메서드_jb
-   /* public void readStorage()
+   public void readStorage()
     {
         File file = new File("data/user/0/com.example.teamproject2/files", "test.txt");  // getFilesDir(): 파일의 전체 저장 경로를 가져오는 메소드
         FileReader fr = null;       // 파일 데이터를 읽기 위한 핸들러 fr 선언.
