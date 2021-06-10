@@ -41,13 +41,13 @@ public class ViewActivity extends AppCompatActivity {
         m_v_memo=findViewById(R.id.v_memo);
 
         intent = getIntent();
-        String imgpath = getCacheDir() + "/" + s_name1+p_name1+l_name1;   // 내부 저장소에 저장되어 있는 이미지 경로
-        Bitmap bm = BitmapFactory.decodeFile(imgpath);
         s_name1 = intent.getStringExtra("shelterName");
         p_name1 = intent.getStringExtra("writer");
         l_name1 = intent.getStringExtra("location");
         m_name1 = intent.getStringExtra("memo");
         position = intent.getIntExtra("position",-1);
+        String imgpath = getCacheDir() + "/" + s_name1+p_name1+l_name1;   // 내부 저장소에 저장되어 있는 이미지 경로
+        Bitmap bm = BitmapFactory.decodeFile(imgpath);
 
         m_v_image.setImageBitmap(bm);   // 내부 저장소에 저장된 이미지를 이미지뷰에 셋
                                         // a 변수에(id에 해당하는 곳에) b 변수에 저장된 데이터를 set 으로 설정한다.
