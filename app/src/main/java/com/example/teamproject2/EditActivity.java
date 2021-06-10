@@ -46,8 +46,6 @@ public class EditActivity extends AppCompatActivity {
 
 
     public void mOnClick(View v){
-        int code = intent.getIntExtra("viewCode",-1);  //뷰에서 온 확인코드 10
-        int code2 = intent.getIntExtra("code",-1);    //메인에서 온 확인코드 20
         switch (v.getId()){
             case R.id.e_image:
                 intent = new Intent();

@@ -19,7 +19,7 @@ import java.io.FileWriter;
 
 public class MainActivity extends AppCompatActivity {
     Storage storage = new Storage();
-    private int mainCode = 11;
+
     // activity_main.xml에 있는 버튼들을 묶어서 저장함
     private int[] btnId = new int[]{
             R.id.m_btn1, R.id.m_btn2, R.id.m_btn3,
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.edit:         // 메뉴바에서 수정 버튼을 클릭할 경우
                 intent = new Intent(this, EditActivity.class);
-                startActivityForResult(intent, 11);
+                startActivity(intent);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -156,7 +156,8 @@ public class MainActivity extends AppCompatActivity {
             builder.create().show();
         }
     }
-    public void update() {
+
+    /*public void update() {
         File file = new File( getFilesDir(), "test.txt");
         Toast.makeText(this, getFilesDir().toString(), Toast.LENGTH_SHORT).show();
         FileWriter fw = null ;     // 파일에 데이터를 쓰기위한 핸들러 fw 선언
@@ -172,5 +173,5 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace() ;
         }
-    }
+    }*/
 }
