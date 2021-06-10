@@ -46,7 +46,7 @@ public class ViewActivity extends AppCompatActivity {
         l_name1 = intent.getStringExtra("location");
         m_name1 = intent.getStringExtra("memo");
         position = intent.getIntExtra("position",-1);
-        String imgpath = getCacheDir() + "/" + s_name1;   // 내부 저장소에 저장되어 있는 이미지 경로
+        String imgpath = getCacheDir() + "/" + s_name1+p_name1+l_name1;   // 내부 저장소에 저장되어 있는 이미지 경로
         Bitmap bm = BitmapFactory.decodeFile(imgpath);
         m_v_image.setImageBitmap(bm);   // 내부 저장소에 저장된 이미지를 이미지뷰에 셋
                                        // a 변수에(id에 해당하는 곳에) b 변수에 저장된 데이터를 set 으로 설정한다.
@@ -66,11 +66,11 @@ public class ViewActivity extends AppCompatActivity {
 
                 BitmapDrawable drawable = (BitmapDrawable) m_v_image.getDrawable(); //이미지 동적
                 Bitmap bitmap = drawable.getBitmap();
-                ByteArrayOutputStream bs = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 50, bs);
+                //ByteArrayOutputStream bs = new ByteArrayOutputStream();
+                //bitmap.compress(Bitmap.CompressFormat.JPEG, 50, bs);
                 //  ↑ 구글링으로 찾은 이미지를 put 하는 방법인데 자세히는 모르겠음.
                 //  | 아마 bit 로 이루어진 이미지의 bit 를 배열로 저장하고 넘기는 방식인듯 함.
-                intent.putExtra("pic", bs.toByteArray());
+                //intent.putExtra("pic", bs.toByteArray());
                 intent.putExtra("position", position);
                 intent.putExtra("s_name", m_v_shelterName.getText().toString());
                 intent.putExtra("p_name", m_v_provider.getText().toString());
@@ -94,7 +94,7 @@ public class ViewActivity extends AppCompatActivity {
             String l = data.getStringExtra("l_name");
             String m = data.getStringExtra("m_name");
             //byte[] byteArray = data.getByteArrayExtra("icon");    // b 변수에 intent 내부에 들어있는 데이터들을 get 을 사용하여 저장한 뒤
-            String imgpath = getCacheDir() + "/" + s;   // 내부 저장소에 저장되어 있는 이미지 경로
+            String imgpath = getCacheDir() + "/" + s+p+l;   // 내부 저장소에 저장되어 있는 이미지 경로
             Bitmap bm = BitmapFactory.decodeFile(imgpath);
             m_v_image.setImageBitmap(bm);   // 내부 저장소에 저장된 이미지를 이미지뷰에 셋
             //Toast.makeText(this, getCacheDir().toString(), Toast.LENGTH_SHORT).show();

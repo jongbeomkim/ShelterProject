@@ -50,10 +50,10 @@ public class MainMenuFrag1 extends Fragment {
             try {
                 fr = new FileReader(file);    // fr 을 "file"파일을 읽기 위한 핸들러로 선언.
                 bufrd = new BufferedReader(fr);
-                while ((s = bufrd.readLine()) != null) {
+                while ( (s= bufrd.readLine()) != null) {
                     String[] split = new String(s).split(",");
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    String imgpath = getActivity().getCacheDir() + "/" + split[1];   // 내부 저장소에 저장되어 있는 split[1]은 이미지파일명 (쉴터이름)
+                    String imgpath = getActivity().getCacheDir() + "/" +split[1]+split[2]+split[3];   // 내부 저장소에 저장되어 있는 split[1]은 이미지파일명 (쉴터이름)
                     Bitmap bm = BitmapFactory.decodeFile(imgpath);
                     Storage.items.add(new Item(bm, split[1], split[2], split[3],split[4]));
                 }

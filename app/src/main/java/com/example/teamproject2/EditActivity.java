@@ -86,13 +86,16 @@ public class EditActivity extends AppCompatActivity {
                 intent = getIntent();
                 imageView = findViewById(R.id.e_image);
 
-                byte[] byteArray = intent.getByteArrayExtra("pic");
-                Bitmap image = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+                //byte[] byteArray = intent.getByteArrayExtra("pic");
+                //Bitmap image = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+
                 s_name2 = intent.getStringExtra("s_name");
                 p_name2 = intent.getStringExtra("p_name");
                 l_name2 = intent.getStringExtra("l_name");
                 m_name2 = intent.getStringExtra("m_name");
-                imageView.setImageBitmap(image);   // 내부 저장소에 저장된 이미지를 이미지뷰에 셋
+                String imgpath = getCacheDir() + "/" + s_name2+p_name2+l_name2;   // 내부 저장소에 저장되어 있는 이미지 경로
+                Bitmap bm = BitmapFactory.decodeFile(imgpath);
+                imageView.setImageBitmap(bm);   // 내부 저장소에 저장된 이미지를 이미지뷰에 셋
 
         }
                 s_text.setText(s_name2);
@@ -155,7 +158,7 @@ public class EditActivity extends AppCompatActivity {
     }
 
     public void saveBitmapToJpeg(Bitmap bitmap) {   // 선택한 이미지 내부 저장소에 저장
-        File tempFile = new File(getCacheDir(),s_text.getText().toString());    // 파일 경로와 이름 넣기
+        File tempFile = new File(getCacheDir(),s_text.getText().toString()+p_text.getText().toString()+l_text.getText().toString());    // 파일 경로와 이름 넣기
         try {
             tempFile.createNewFile();   // 자동으로 빈 파일을 생성하기
             FileOutputStream out = new FileOutputStream(tempFile);  // 파일을 쓸 수 있는 스트림을 준비하기
